@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Understanding and implementing a Service Worker
-published: false
 ---
 
 A Service Worker is a type of Web Worker, which runs in a thread separate to the main browser thread. It sits between an application, the browser, and the network.
@@ -9,6 +8,10 @@ A Service Worker is a type of Web Worker, which runs in a thread separate to the
 The most common use of Service Worker is for caching files and assets in partially or fully offline web applications. In this article, I will explain the key necessary steps for doing this.
 
 The demo application from which all the code snippets in this article are taken from can be found here: https://github.com/will093/service-worker-basic
+
+## Getting started
+
+We will start by creating a basic web application using a Yeoman generator, and then explore how we can add offline functionality using Service Worker.
 
 ## Service Worker lifecycle events
 Service Worker has 2 important lifecycle events which we must implement when creating offline applications.
@@ -85,7 +88,11 @@ self.addEventListener('fetch', function (event) {
 });
 ```
 
-Note that the above is a very trivial example and is only suitable for the circumstance where none of the cached files ever get updated.
+Note that the above is a very trivial example and is only suitable for the circumstance where none of the cached files ever get updated. Depending on our use case, we will want to use different caching strategies.
+
+## Caching strategies
 
 It is really up to you as a developer to decide on the caching strategy that you wish to use when a request is made — https://serviceworke.rs has many good examples of caching strategies.
+
+// TODO
 
