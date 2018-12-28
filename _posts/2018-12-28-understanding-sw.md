@@ -1,6 +1,6 @@
 ---
 layout: post
-title: PWAs with Angular, Part 1 - Understanding and Implementing Service Worker
+title: "PWAs with Angular - Part 1: Understanding and Implementing Service Worker"
 ---
 
 Recently, I have been hearing a lot of hype around Progressive Web Apps (PWAs). At first glance PWAs seem rather amazing and revolutionary - something that can be deployed as and function as a web application, but which also works offline, and can be added to the home screen like a native app on both Android and iOS.
@@ -106,7 +106,15 @@ If we then refresh the browser and look in the console output, we will see that 
 
 ![Service Worker Install](/images/understanding-sw/sw-install.png)
 
-If we refresh the page again, we see that the install event handler doesn't run again - this is expected and as the Service Worker has not been updated. 
+And if we look in the Service Workers section in the Application tab, we can see the current status of any Service Workers on the domain.
+
+![Application Tab](/images/understanding-sw/sw-application.png)
+
+In fact, in the Application tab, we can open up and view Cache Storage - this is where Service Worker caches files. If we open up the cache named 'v1' (which is the cache name we specified earlier) then we can see that our HTML, CSS and JS files are cached here as expected.
+
+![Application Tab Cach Storage](/images/understanding-sw/sw-application-cache-storage.png)
+
+If we refresh the page again, we see that the install event handler doesn't run again - this is expected as the Service Worker has not been updated. 
 
 Now that our Service Worker is installed, we must still wait for it to be activated before network requests will be forwarded to it.
 
@@ -143,6 +151,10 @@ self.addEventListener('activate', function (event) {
 ```
 
 Now if we refresh the page once more we will see that the install event handler runs, but the activate event handler does not. This is because we just updated our Service Worker file - meaning that the new version has been installed, but cannot be activated while the app is running in any open tab.
+
+We can confirm that our Service Worker has not yet activated by opening up the Service Workers section in the Application tab in the Chrome devtools.
+
+![Service Worker Application Tab Waiting](/images/understanding-sw/sw-application-waiting.png)
 
 We did refresh the page, so you would think that there was a time when no instance of the app was running - but this is not the case. Refreshing the page will not be enough to activate the Service Worker even if the app is not open in any other tab — when you refresh the page there is some overlap during which both the new and old page are open. 
 
@@ -182,7 +194,7 @@ You will usually want to implement a more complex caching strategy, and this str
 
 It is really up to you as a developer to decide on the caching strategy that you wish to use when a request is made — https://serviceworke.rs has many good examples of caching strategies.
 
-## Caveats
+## Gotchas
 
 Service Workers actually have quite a few gotchas, here are the ones which caused me the most confusion:
 

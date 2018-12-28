@@ -1,0 +1,83 @@
+.wrapper-masthead {
+  margin-bottom: 50px;
+  background: $primary;
+  
+  * {
+    color: $white;
+  }
+
+  a:hover {
+    color: darken($white, 20%);
+  }
+}
+
+.masthead {
+  padding: 15px 0;
+
+  @include mobile {
+    text-align: center;
+  }
+}
+
+.site-avatar {
+  float: left;
+  width: 80px;
+  height: 80px;
+  margin-right: 25px;
+
+  @include mobile {
+    float: none;
+    display: block;
+    margin: 0 auto;
+  }
+
+  img {
+    margin: 0;
+    border: 2px solid darken($primary, 10%);
+    border-radius: 50%;
+  }
+}
+
+.site-info {
+  float: left;
+
+  @include mobile {
+    float: none;
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.site-name {
+  margin-top: 16px;
+  cursor: pointer;
+  font-family: $helveticaNeue;
+  font-weight: 300;
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+nav {
+  float: right;
+  margin-top: 29px; // @TODO: Vertically middle align
+  font-family: $helveticaNeue;
+  font-size: 18px;
+
+  @include mobile {
+    float: none;
+    margin-top: 9px;
+    display: block;
+    font-size: 16px;
+  }
+
+  a {
+    margin-left: 20px;
+    text-align: right;
+    font-weight: 300;
+    letter-spacing: 1px;
+
+    @include mobile {
+      margin: 0 10px;
+    }
+  }
+}

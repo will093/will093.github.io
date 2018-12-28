@@ -5,8 +5,8 @@ permalink: /about/
 published: true
 ---
 
-Web developer, Angular expert and JavaScript enthusiast from the vibrant city of Bristol, UK. I like to learn new things and then write articles on my findings.
+I am Web developer, Angular expert and JavaScript enthusiast from the vibrant city of Bristol, UK.
 
 ### Contact me
 
-[willtaylor.developer@gmail.com](mailto:email@domain.com)
+If you would like to get in contact with me, please email me at [willtaylor.developer@gmail.com](mailto:email@domain.com)
