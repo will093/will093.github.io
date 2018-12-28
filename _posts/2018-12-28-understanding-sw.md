@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PWAs with Angular - Part 1: Understanding and Implementing Service Worker"
+title: "PWAs with Angular - Part 1: Understanding Service Worker"
 ---
 
 Recently, I have been hearing a lot of hype around Progressive Web Apps (PWAs). At first glance PWAs seem rather amazing and revolutionary - something that can be deployed as and function as a web application, but which also works offline, and can be added to the home screen like a native app on both Android and iOS.
@@ -13,15 +13,11 @@ In this article we will build a small example app, and then add in offline funct
 
 A Service Worker is a type of Web Worker, which runs in a thread separate to the main browser thread. It sits between an application, the browser, and the network.
 
-The most common use of Service Worker is caching files and assets in partially or fully offline web applications (such as PWAs).
-
-## Browser Support
-
-Service Workers are supported in the latest versions of Edge, Firefox, Chrome and Safari, and if a user's browser does not support Service Worker then apps and websites which utilise Service Worker will still work, but will fall back to always using the network.
+The most common use of Service Worker is caching files and assets in partially or fully offline web applications.
 
 ## Getting started
 
-The demo application from which all the code snippets in this article are taken from can be found here: https://github.com/will093/service-worker-tutorial
+The demo application from which all the code snippets in this article are taken from can be found here: <https://github.com/will093/service-worker-tutorial>
 
 We will start by creating a basic web application using a Yeoman generator, and then explore how we can add offline functionality using Service Worker.
 
@@ -156,7 +152,7 @@ We can confirm that our Service Worker has not yet activated by opening up the S
 
 ![Service Worker Application Tab Waiting](/images/understanding-sw/sw-application-waiting.png)
 
-We did refresh the page, so you would think that there was a time when no instance of the app was running - but this is not the case. Refreshing the page will not be enough to activate the Service Worker even if the app is not open in any other tab — when you refresh the page there is some overlap during which both the new and old page are open. 
+We did refresh the page, so you would think that there was a time when no instance of the app was running - but this is not the case. Refreshing the page will not be enough to activate the Service Worker even if the app is not open in any other tab - when you refresh the page there is some overlap during which both the new and old page are open. 
 
 To activate the Service Worker you can navigate to another page and then back again, and this will trigger the 'activate' event.
 
@@ -184,15 +180,19 @@ Now if we navigate away from the page and then navigate back again, the updated 
 
 ![Service Worker Caching](/images/understanding-sw/sw-caching.png)
 
-The Service Worker is intercepting each request and making either making its own request to the network (the requests with the cog icon next to them are made by Service Worker) or just retrieving files from the cache without making a request to the network (the files which say '(from ServiceWorker)' in the size column and have no cog icon).
+The Service Worker is intercepting each request and making either making its own request to the network (the requests with the cog icon next to them are made by Service Worker) or just retrieving files from the cache without making a request to the network (the files which say '(from ServiceWorker)' in the size column and have no request made by Service Worker).
 
 ## Caching strategies
 
 There are many different caching strategies that you can use. In our example we simply retrieve the file from the cache if it is available, and only ever use the network to retrieve the file if it is not in the cache. This caching strategy is only suitable for the circumstance where none of the cached files ever get updated. 
 
-You will usually want to implement a more complex caching strategy, and this strategy will be dependent on your use case. For example you may wish to attempt to get the freshest version of the files from the network, but then if the network unavailable or is taking too long, retrieve the files from the cache. You may also wish to use different caching strategies form different file types.
+You will usually want to implement a more complex caching strategy, and this strategy will be dependent on your use case. For example you may wish to attempt to get the freshest version of the files from the network, but then if the network is unavailable or is taking too long, retrieve the files from the cache. You may also wish to use different caching strategies for different file types.
 
-It is really up to you as a developer to decide on the caching strategy that you wish to use when a request is made — https://serviceworke.rs has many good examples of caching strategies.
+It is really up to you as a developer to decide on the caching strategy that you wish to use — https://serviceworke.rs has many good examples of caching strategies.
+
+## Browser Support
+
+Service Workers are supported in the latest versions of Edge, Firefox, Chrome and Safari (not IE), but the nice thing is that if a user's browser does not support Service Worker then apps and websites which utilise Service Worker will still work, but will fall back to always using the network.
 
 ## Gotchas
 
