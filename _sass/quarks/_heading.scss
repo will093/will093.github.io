@@ -3,10 +3,9 @@ h1, h2, h3, h4, h5, h6 {
     color: $primary;
     font-weight: bold;
   
-    line-height: 1.7;
-    margin: 1em 0 15px;
     padding: 0;
-  
+    margin: 2em 0 15px;
+
     @include mobile {
       line-height: 1.4;
     }
@@ -17,6 +16,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   h1 {
+    margin: 1em 0 15px;
     font-size: 30px;
   }
   

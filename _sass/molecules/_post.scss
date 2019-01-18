@@ -1,29 +1,62 @@
 .post {
-  blockquote {
-    margin: 1.8em 0.8em;
-    border-left: 2px solid $gray;
-    padding: 0.1em 1em;
-    color: $gray;
-    font-size: 22px;
-    font-style: italic;
-  }
 
-  .comments {
-    margin-top: 10px;
-  }
+    blockquote {
+        margin: 1.8em 0.8em;
+        border-left: 2px solid $gray;
+        padding: 0.1em 1em;
+        color: $gray;
+        font-size: 22px;
+        font-style: italic;
+    }
 
-  .read-more {
-    text-transform: uppercase;
-    font-size: 15px;
-  }
+    .comments {
+        margin-top: 10px;
+    }
+
+    .read-more {
+        text-transform: uppercase;
+        font-size: 15px;
+    }
+
+    h2 {
+        margin-top: 0;
+    }
 }
 
 .posts > .post {
-  padding-bottom: 2em;
-  border-bottom: 1px solid $lightGray;
+    margin-bottom: 2em;
+    width: 33%;
+    margin: 5px;
+    border: 1px solid $lightGray;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
 }
 
-.posts > .post:last-child {
-  padding-bottom: 1em;
-  border-bottom: none;
+.posts {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.post__image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        margin: 0;
+        box-shadow: none;
+        max-height: 100%;
+        max-width: 100%;
+    }
+}
+
+.post__teaser-container {
+    padding: 12px;
+    background: $offWhite;
+    border-top: 3px solid $primary;
+}
+
+@media only screen and (max-width: 768px)  {
+    .posts > .post {
+        width: 100%;
+    }
 }

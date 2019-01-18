@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "PWAs with Angular - Part 1: Understanding Service Worker"
+image: "/images/understanding-sw/cogs.jpg"
 ---
 
 Recently, I have been hearing a lot of hype around Progressive Web Apps (PWAs). At first glance PWAs seem rather amazing and revolutionary - something that can be deployed as and function as a web application, but which also works offline, and can be added to the home screen like a native app on both Android and iOS.

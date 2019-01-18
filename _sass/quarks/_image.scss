@@ -1,6 +1,12 @@
 img {
-  margin: 10px 0 20px 0;
+  margin: 20px auto 25px;
   max-width: 100%;
+  display: block;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
+
+  &.header-image {
+      max-width: 75%;
+  }
 }
 
 // Fixes images in popup boxes from Google Translate
