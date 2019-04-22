@@ -11,10 +11,10 @@ When I first used this feature I was delighted at how simple it was, as while it
 
 In this article, I will walk you the key elements of developing Angular libraries:
 
- * Common use cases for Angular libraries
- * How to create a library using the Angular CLI
- * How to speed up development of Angular libraries with npm link
- * How to publish your library
+ * Common use cases for Angular libraries.
+ * Creating a library using the Angular CLI.
+ * Speeding up development of Angular libraries with npm link.
+ * Publishing your library.
 
 The full demo code for the library which we create can be found [here](https://github.com/will093/example-component-library).
 
@@ -38,7 +38,7 @@ ng generate library example-component-library
 ng generate application example-component-library-app
 ```
 
-Using the `--create-appication=false` flag prevents Angular from creating an application with the name 'example-component-library', which is the name we want to give to the library itself and not the test application, [as explained here](https://blog.angularindepth.com/creating-a-library-in-angular-6-87799552e7e5).
+Using the `--create-application=false` flag prevents Angular from creating an application with the name 'example-component-library', which is the name we want to give to the library itself and not the test application, [as explained here](https://blog.angularindepth.com/creating-a-library-in-angular-6-87799552e7e5).
 
 If we now look inside of the workspace which we just created, we can see that there is a `projects` folder containing a sub folder for each of the library (example-component-library) and the application (example-component-library-app) which we just generated. There is also a third folder containing an e2e test project, which we can ignore.
 
@@ -54,7 +54,7 @@ If we look in the dist folder, we will see that our library has been built and t
 * esm5 - module format which uses mostly es5, but also the import/export syntax from es6.
 * esm2015 - module format which uses es2015/es6.
 * fesm5 - flattened version of esm5 format.
-* fesm2015 - flattened version of esm2015 format
+* fesm2015 - flattened version of`peerDependencies` esm2015 format
 * lib - TypeScript definitions for the library
 
 This format is called [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview), and it is the format used as the output of [ng-packagr](https://www.npmjs.com/package/ng-packagr), the tool which Angular CLI uses to transpile libraries.
@@ -67,7 +67,7 @@ The contents of the library currently look like this:
 
 First, delete the existing `example-component-library` module, component and service files - we do not need these.
 
-Next we will add a component, a pipe and a directive. We will follow a pattern of adding one component per module - this will allow an application to import only the modules of the library which it is interested in, and then for all other modules to be tree shaken during the build process. I highly recommend doing this, as it will really make a difference to the size of your application bundles as the library grows.  
+Next we will add a component, a pipe and a directive. We will follow a pattern of adding one component per module - this will allow a consuming application to import only the modules of the library which it is interested in, and then for all other modules to be tree shaken during the build process. I highly recommend doing this, as it will really make a difference to the size of your application bundles as the library grows.  
 
 
 ```
@@ -128,11 +128,13 @@ export * from './lib/directives/baz/baz.directive';
 
 Now all we have to do is rebuild the library, and it will be ready to consume the library from an application.
 
-`ng build --project=example-component-library`
+```
+ng build --project=example-component-library
+```
 
 # Consuming our Angular library
 
-## During Development
+## In Development
 
 During development the best way to consume our library is using [npm link](https://docs.npmjs.com/cli/link.html). This will allow us to symlink from a directory in our consuming application's node modules folder to the compiled application in the library's dist folder.
 
@@ -196,6 +198,9 @@ If your library has dependencies, then these should be specified as either `depe
 
 Angular is specified as a `peerDependency` rather than a `dependency` in order to avoid having the consuming application install multiple, conflicting versions of Angular. [This article](https://blog.angularindepth.com/npm-peer-dependencies-f843f3ac4e7f) has some good information on `peerDependencies` and when to use them.
 
+# Conclusion
+
+We have seen how we can create an Angular component library which can be consumed by multiple different Angular applications, as well as how  we can work with libraries in development and publish them for production. Below I have listed the resources I have found useful for learning about Angular libraries myself, and for writing this article.
 
 # Useful resources
 
