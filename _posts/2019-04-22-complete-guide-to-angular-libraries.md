@@ -2,6 +2,7 @@
 layout: post
 title: "A complete guide to Angular libraries"
 image: "/images/angular-libraries-guide/book.jpeg"
+published: "true"
 ---
 
 One of the things that was introduced with Angular 6 was the ability to create and build libraries with the Angular CLI. 
