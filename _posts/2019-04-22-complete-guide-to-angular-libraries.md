@@ -5,7 +5,7 @@ image: "/images/angular-libraries-guide/book.jpeg"
 published: "true"
 ---
 
-One of the things that was introduced with Angular 6 was the ability to create and build libraries with the Angular CLI. 
+One of the things that was introduced in Angular 6 was the ability to create and build libraries with the Angular CLI. 
 
 When I first used this feature I was delighted at how simple it was, as while it was technically possible to create libraries using earlier versions of Angular, it was an altogether frustrating and saddening experience.
 
@@ -25,7 +25,7 @@ From my experience, there are 2 common use cases for Angular libraries:
 1. Building a reusable component library for sharing between applications.
 2. Building shared service layer functionality - eg. a client for working with an external data source such as an API.
 
-While there are many times that an Angular library is a good fit for a project, it is worth considering whether you definitely need one as it does introduce some maintenence overhead. Remember, you can always write functionality as part of a shared Angular module within your application and extract it out into a library when necessary.
+While there are lots of cases where an Angular library is a good fit for a project, it is worth considering whether your use case is one these, as it does introduce some maintenance overhead. Remember, you can always write functionality as part of a shared Angular module within your application and extract it out into a library when necessary.
 
 ## Creating an Angular library project
 
@@ -53,9 +53,9 @@ If we look in the dist folder, we will see that our library has been built and t
 * bundles - UMD module format.
 * esm5 - module format which uses mostly es5, but also the import/export syntax from es6.
 * esm2015 - module format which uses es2015/es6.
-* fesm5 - flattened version of esm5 format.
-* fesm2015 - flattened version of`peerDependencies` esm2015 format
-* lib - TypeScript definitions for the library
+* fesm5 - flattened version of esm5.
+* fesm2015 - flattened version of`peerDependencies` esm2015.
+* lib - TypeScript definitions for the library.
 
 This format is called [Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/preview), and it is the format used as the output of [ng-packagr](https://www.npmjs.com/package/ng-packagr), the tool which Angular CLI uses to transpile libraries.
 
@@ -202,7 +202,7 @@ Angular is specified as a `peerDependency` rather than a `dependency` in order t
 
 We have seen how we can create an Angular component library which can be consumed by multiple different Angular applications, as well as how  we can work with libraries in development and publish them for production. Below I have listed the resources I have found useful for learning about Angular libraries myself, and for writing this article.
 
-# Useful resources
+# Helpful resources
 
 * <https://devchat.tv/adv-in-angular/aia-193-angular-libraries-with-juri-strumpflohner>
 * <https://blog.angularindepth.com/creating-a-library-in-angular-6-87799552e7e5>
