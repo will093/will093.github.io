@@ -39,6 +39,8 @@ The Observable can essentially do three things in terms of notifying its Observe
 
 Once an Observable either errors or completes, it will unsubscribe all of its Observers and can no longer emit values, error or complete. A consequence of this is that an Observable will never both error and complete.
 
+// TODO diagrams showing valid sequences.
+
 ## Observer
 
 An Observer is simply an object with `next`, `error` and `complete` methods which handle notifications from an Observable.
@@ -58,21 +60,49 @@ So how do we create and work with RxJS Observables? Lets first have a look at a 
 ```ts
 import { Observable } from 'rxjs';
 
-const source$ = Observable.create(observer => {
+/*
+ * A producer function, defining what action to take each time 
+ * an Observer subscribes. The function will be passed the 
+ * subscribing Observer as a parameter.
+ */
+const producer = observer => {
+  console.log('A new subscriber');
   observer.next(1);
   observer.next(2);
   observer.complete();
-});
+}
 
+/*
+ * Create a new Observable, giving it a producer function to 
+ * execute whenever any Observer subscribes.
+ */
+const source$ = Observable.create(producer);
+
+/*
+ * An Observer - simply an Object with next, error and complete
+ * methods.
+ */
 const observer = {
     next: value => console.log(value),
     error: error => console.log(`Error: ${error}`),
     complete: () => console.log('Complete'),
 };
 
-source$.subscribe(value => {
-  console.log(value) // 1, 2
-});
+/*
+ * We subscribe here, causing our Observable to execute the 
+ * producer function we gave it earlier, with the Observer 
+ * we give it here as an argument.
+ */
+source$.subscribe(observer);
+// A new subscriber
+// 1
+// 2
+
+// We subscribe again, causing the producer function to execute again.
+source$.subscribe(observer);
+// A new subscriber
+// 1
+// 2
 ```
 
 We use 2 important methods here:
@@ -81,12 +111,43 @@ We use 2 important methods here:
 
     RxJS provides an `Observable.create` method which is used, unsurprisingly, to create an Observable (there are other ways to create Observables, which I will talk about further on). 
     
-    `Observable.create` method takes a single parameter, `subscribe`, which is a function that allows us to emit data to Observers by directly making calls to an Observer's methods. This function is sometimes referred to as the Observable's **producer function**.
+    `Observable.create` method takes a single parameter, `subscribe`, which is a function that defines what action to take each time an `Observer` subscribes. This function is sometimes referred to as the `Observable`'s **producer function**.
+    
+    Essentially, when we call `Observable.create`, we are saying 'create me a new Observable, and execute this producer function each time any Observer subscribes to the Observable'.
+
+    A consequence of this is that the producer function is not executed when we call `Observer.create`, only upon subscription - this behaviour is known as lazy execution.
 
 2. **Observable.subscribe**
 
-    Subscribe is the method via which Observers can register with an Observable in order to listen to its notifications.
+    `subscribe` is the method via which an `Observer` can register with an `Observable` in order to listen to its notifications. 
+    
+    `subscribe` takes a single argument - an `Observer`, as well as a number of shorthands which allow the consuming code to pass parts of an Observer.
 
+    ```ts
+    source$.subscribe(v => console.log(v));
+    ```
+
+    This is equivalent to:
+
+    ```ts
+    const observer = {
+        next: v => console.log(v),
+    }
+
+    source$.subscribe(observer);
+    ```
+
+    Which is in turn equivalent to:
+
+    ```ts
+    const observer = {
+        next: v => console.log(v),
+        error: () => {},
+        complete: () => {},
+    }
+
+    source$.subscribe(observer);
+    ```
 
 ## Producer
 
