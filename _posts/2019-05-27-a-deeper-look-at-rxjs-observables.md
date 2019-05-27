@@ -1,33 +1,33 @@
 ---
 layout: post
-title: "RxJS: demystifying Observables and Observers"
-image: ""
+title: "A deeper look at RxJS Observables"
+image: "/images/deeper-look-at-rxjs-observables/marbles.png"
 ---
 
-Observable, observer, producer, subscriber, finite/infinite, unicast/multicast, hot/cold, subject, operator, ... , and so on.
+Observable, observer, producer, subscriber, finite/infinite, unicast/multicast, hot/cold, subject, operator, ... and so on.
 
-There are a lot of new concepts and a lot of new terminology that comes with RxJS, and it can be tricky to get your head around all of it. 
+There are a lot of new concepts and terminology that come with RxJS, and it can be tricky to get your head around all of it. 
 
 In my opinion, the best way to fully understand these concepts is to go back to basics and take a more detailed look at how observables and observers really work. From this, many of the more advanced RxJS concepts follow quite naturally.
 
-In this article, we will first look at the Observer pattern, which RxJS observables/observers are an implementation of. Then, we will take a deeper look at how observables and observers work, and from this, arrive at an understanding of what it means when we say an observable is finite, infinite, hot, cold, unicast, or multicast.
+In this article, we will first look at the Observer pattern, which RxJS Observables/Observers are an implementation of. Then, we will take a deeper look at how observables and observers work, and from this, arrive at an understanding of what it means when we say an observable is finite, infinite, hot, cold, unicast, or multicast.
 
 # Observer pattern
 
-The [observer pattern](https://sourcemaking.com/design_patterns/observer) is one of the most well known patterns in software development. A nice definition of the observer pattern from O'Reillys Head First Design Patterns is as follows:
+The [Observer pattern](https://sourcemaking.com/design_patterns/observer) is one of the most well known patterns in software development. A nice definition of the observer pattern from O'Reilly's *Head First Design Patterns* is as follows:
 
-The observer pattern defines a one-to-many dependency between objects so that when one object changes state, all of its dependents are notified and updated immediately.
+> The observer pattern defines a one-to-many dependency between objects so that when one object changes state, all of its dependents are notified and updated immediately.
 
 In this pattern the following terminology is used to describe the actors involved:
 
-* **Subject** - this is an object which stores or accesses data and provides methods via which interested parties can subscribe and be notified of changes to this data. This succession of notifications can also be thought of as a stream of events.
-* **Observers** - these are objects which choose to subscribe to a Subject and recieve notifications when its data changes. 
+* ***Subject*** - this is an object which stores or accesses data and provides methods via which interested parties can subscribe and be notified of changes to this data. This succession of notifications can also be thought of as a stream of events.
+* ***Observers*** - these are objects which subscribe to a *subject* and recieve notifications when its data changes. 
 
-So how does this relate RxJS?
+So how does this relate to RxJS?
 
-The relationship between RxJS observables and observers conforms exactly to the pattern described above, with the RxJS observable being the Subject and the RxJS observers being the Observers. 
+The relationship between RxJS Observables and Observers conforms exactly to the pattern described above, with the RxJS Observable being the *subject* and the RxJS Observers being the *observers*. 
 
-Where this gets slightly confusing is that there is also an RxJS subject (itself a Subject in the sense of the observer pattern).
+Where this gets slightly confusing is that there is also an RxJS Subject. Here we use the term *subject* to refer only to its definition as given above, in the context of the Observer pattern. 
 
 # RxJS Observables and Observers
 
@@ -37,7 +37,7 @@ An **observable** is best conceptualised as a stream of events, to which its **o
 
 The observable can essentially do three things in terms of notifying its observers.
 
-1. Emit a value - (0, 1 or many timeIn this articleIn this articleIn this articleIn this articleIn this articleIn this articleIn this articles)
+1. Emit a value - (0, 1 or many times)
 2. Emit an error - (0 or 1 times)
 3. Complete - (0 or 1 times)
 
@@ -55,9 +55,9 @@ const observer = {
 }
 ```
 
-## In practice
+## Observables in practice
 
-So how do we create and work with RxJS observables? Lets have a look at some sample code:
+So how do we create and work with observables? Lets have a look at a simple example.
 
 ```ts
 import { Observable } from 'rxjs';
@@ -155,15 +155,15 @@ We use two important methods here:
 
 A **finite observable** is an observable which completes.
 
-Think of an observable which wraps a http request. This Observable will always emit a single value and then complete (or it will error). 
+Think of an observable which wraps a http request. This observable will always emit a single value and then complete (or it will error). 
 
 We can visualise this observable stream as follows:
 
-**--------------------xc**
+**- - - - - - - - - - xc**
 
 Or in the case of an error:
 
-**---------------------e**
+**- - - - - - - - - - - e**
 
 There is no need to explicitely unsubscribe from finite observables, this is because when an observable completes or errors, it will automatically unsubscribe any subscribers on its own.
 
@@ -175,15 +175,17 @@ Think of an observable which wraps a sequence of mouse click events. There is no
 
 We can visualise this observable stream as:
 
-**--x---x---x----x---**
+**- x - - x - - x - - x - -**
 
 The fact that the observable never completes means that any observers will hang around in memory for the lifespan of the observable. This is why it is often emphasized that you should unsubscribe from infinite observables when once the observer no longer needs to receive its emissions.
 
-In practice, we the consumer doesn't always know whether the observable it is subscribing to is finite or infinite, and in these cases it is best to explicitely unsubscribe.
+In practice, the consumer doesn't always know whether the observable it is subscribing to is finite or infinite, and in these cases it is best to explicitely unsubscribe.
 
 # Hot and Cold Observables
 
-First, lets define a **producer** as a source of values for an observable - ie. the thing which actually calls the observer's `next`, `complete` and `error` methods.
+First, lets take a look at **producers**.
+
+A **producer** as a source of values for an observable - ie. the thing which actually calls the observer's `next`, `complete` and `error` methods.
 
 The producer can either be the subscription function itself, or some source contained within or closed over by the subscription function (eg. a sequence of DOM events, a http response, a connection to a web socket).
 
@@ -191,7 +193,7 @@ The producer can either be the subscription function itself, or some source cont
 
 A **cold observable** has a subscription function which creates a producer each time it executes.
 
-To understand what this looks like in practice, lets look at an example of a cold observable which wraps a http request made with the fetch api:
+To understand what this looks like in practice, lets look at an example of a cold observable which wraps a Promise returned from the fetch api:
 
 ```ts
 const subscriptionFn = observer => {
@@ -211,7 +213,7 @@ source$.subscribe(response => console.log(response));
 
 ```
 
-Lets break down what happens here into a series of chronological steps:
+Lets break down what happens when this executes into a series of chronological steps:
 
 1. We define our subscription function.
 2. We create an observable using the subscription function that we defined.
@@ -220,14 +222,14 @@ Lets break down what happens here into a series of chronological steps:
 
 In this case note that:
 
-* We make 1 http request per observer, when that observer subscribes (lazy execution). 
+* We make 1 call to the fetch api and hence 1 http request per observer, when that observer subscribes (lazy execution). 
 * Values emitted by the observable are not shared between observers (ie. each observer receives a different `response` object). An Observable which behaves in this way is known as **unicast**.
 
 ## Hot Observable
 
 A hot observable has a subscription function which closes over its producer.
 
-To understand how this is different to the cold observable, lets look at an example of a hot observable which wraps a http request made with the fetch api:
+To understand how this is different to the cold observable, lets look at an example of a hot observable which wraps a Promise rturned from the fetch api:
 
 ```ts
 /*
@@ -251,30 +253,30 @@ source$.subscribe(response => console.log(response));
 source$.subscribe(response => console.log(response));
 ```
 
-Lets do the same thing that we did for the cold observable, and break this down into a series of chronological steps.
+Lets do the same thing that we did for the cold observable, and break down what happens when this executes into a series of chronological steps:
 
 1. We make a http request via the fetch api and store this as a promise.
-1. We define our subscription function.
-2. We create an observable using the subscription function that we defined. execution
-3. We subscribe to the observable. At this point, our subscription function executes. We instruct our promise to pass the resolved value of our promise to the observer once it resolves.
-4. We subscribe another observer to the same Observable. Our subscription function executes again, and we again instruct the same promise to pass its resolved value to our second observer.
+2. We define our subscription function.
+3. We create an observable using the subscription function that we defined.
+4. We subscribe to the observable. At this point, our subscription function executes. We instruct our promise to pass the resolved value of our promise to the observer once it resolves.
+5. We subscribe another observer to the same observable. Our subscription function executes again, and we again instruct the same promise to pass its resolved value to our second observer.
 
 In contrast to the cold observable:
 
-* We only make 1 http request, before the observable is ever created (eager execution). 
+* We only make 1 call to the fetch api and hence 1 http request, before the observable is ever created (eager execution). 
 * Values emitted by the observable are shared between observers (ie. each observer receives the same `response` object). An observable which behaves this way is known as **multicast**.
 
 # Conclusions (tl;dr)
 
-We have taken a look at how observables and observers relate to the Observer pattern, had a deeper looker at how observables really work, and also at some of the terminology surrounding them. 
+We have taken a look at how RxJS Observables and Observers relate to the Observer pattern, had a deeper looker at how observables really work, and also at some of the terminology surrounding them. 
 
 To finish up, here is a quick one line summary of each of the terms that we have looked at:
 
 * **Observable** - a stream of events to which observers can subscribe.
-* **Observer** - an object with `next`, `error` and `complete` methods which 'listens to' an observable.
+* **Observer** - an object with `next`, `error` and `complete` methods, which subscribes to an observable.
 * **Subscription function** - the function which executes each time an observer subscribes to an observable.
 * **Producer** - the source of data for an observable, the thing that calls an observers `next`, `error`, and `complete` methods. 
-* **Hot observable** - an observable which creates is producer.
+* **Hot observable** - an observable which creates its producer.
 * **Cold observable** - an observable which closes over its producer.
 * **Finite observable** - an observable which completes.
 * **Infinite observable** - an observable which never completes.
@@ -285,6 +287,6 @@ To finish up, here is a quick one line summary of each of the terms that we have
 
 The following were really helpful for writing this article, and I very much recommend them as further reading:
 
-* https://medium.com/@benlesh/learning-observable-by-building-observable-d5da57405d87
-* https://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339
-* https://netbasal.com/whos-afraid-of-observables-bde0dc4f48cc
+* <https://medium.com/@benlesh/learning-observable-by-building-observable-d5da57405d87>
+* <https://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339>
+* <https://netbasal.com/whos-afraid-of-observables-bde0dc4f48cc>
