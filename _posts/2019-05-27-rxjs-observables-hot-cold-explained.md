@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "A deeper look at RxJS Observables"
-image: "/images/deeper-look-at-rxjs-observables/marbles.png"
+title: "RxJS: Hot, Cold, Finite, Infinite, Unicast and Multicast Observables explained"
+image: "/images/rxjs-observables-hot-cold-explained/marbles.jpg"
 published: "true"
 ---
 
