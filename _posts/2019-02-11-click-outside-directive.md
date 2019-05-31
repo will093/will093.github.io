@@ -2,7 +2,7 @@
 layout: post
 title: "Building a ClickOutside directive with Angular"
 image: "/images/click-outside/click-outside.jpg"
-published: "true"
+published: true
 ---
 
 I often find myself needing to write code to respond to the user having clicked outside a particular Angular Component or DOM element - this is usually when implementing things like modals and menus, where there is a need to remove the component from the DOM if the user clicks anywhere outside of it. 

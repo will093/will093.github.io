@@ -2,7 +2,7 @@
 layout: post
 title: "RxJS: Hot, Cold, Finite, Infinite, Unicast and Multicast Observables explained"
 image: "/images/rxjs-observables-hot-cold-explained/marbles.jpg"
-published: "true"
+published: true
 ---
 
 Observable, observer, producer, subscriber, finite/infinite, unicast/multicast, hot/cold, subject, operator, ... and so on.
