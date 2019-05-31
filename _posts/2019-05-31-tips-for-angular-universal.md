@@ -2,7 +2,7 @@
 layout: post
 title: "Tips for Angular Universal"
 image: ""
-published: "false"
+published: false
 ---
 
 Angular Universal is a useful tool which allows you to create an Angular app which renders both in the browser and on the server and is able to reap the full benefits of SEO. 
