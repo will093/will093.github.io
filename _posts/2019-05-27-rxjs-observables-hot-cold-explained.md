@@ -230,7 +230,7 @@ In this case note that:
 
 A hot observable has a subscription function which closes over its producer.
 
-To understand how this is different to the cold observable, lets look at an example of a hot observable which wraps a Promise rturned from the fetch api:
+To understand how this is different to the cold observable, lets look at an example of a hot observable which wraps a Promise returned from the fetch api:
 
 ```ts
 /*
