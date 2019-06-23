@@ -140,7 +140,7 @@ There are 3 main changes which haved been made:
 
 Lets take a more detailed look at each of these in turn.
 
-## Node.js server code
+### Node.js server code
 
 This is your `node.js` server code, it is where the server side rendering of the application takes place.
 
@@ -276,7 +276,7 @@ Here, we route get requests to the server.
 We then start the server using `app.listen` - it will listen for requests on our specified port.
 
 
-## Build scripts
+### Additional build scripts
 
 A few build scripts were added to `package.json`:
 
@@ -287,7 +287,7 @@ A few build scripts were added to `package.json`:
 
 You will also see that some additional files `webpack.server.config.js`, `tsconfig.server.json` have been added in order to to facilitate these build scripts, as well as some modifications to `angular.json`.
 
-## Changes to the application source
+### Changes to the application source
 
 If we look at the application source, we see that 2 files were added:
 
@@ -325,30 +325,59 @@ And 2 other files were modified:
 
     The above waits for the DOM to fully load before rendering the Angular app in the browser, this is useful for Angular Universal state transfer, as we will see in the next section.
 
-# State transfer
+# Transfer State
 
-// TODO
+In the case of a Universal application which makes requests to a server in order to render the page, there are a couple of problems. 
 
-## Pitfalls and adaptions
+* The request will be unnecessarily made twice, both on the client and the server.
+* We may see some flickering. This is because we will initially see the server rendered app, then when the client app takes over it needs to wait for a response from the server before rendering the page.
 
-While for the most part, your application should run in the server just as it does in the browser, there are [a few gotchas](https://github.com/angular/universal/blob/master/docs/gotchas.md).
+The Transfer State module provides a solution for transferring state from the server to the client. From the Angular docs:
 
-1. Avoid referencing `window`
+> TransferState - A key value store which gets transferred from the application on the server side to the application on the client side.
 
-    It does not exist in on the Node.js server.
+We can use this module to store responses from HttpRequests - we give each response a key, and then retrieve it on the client. Lets demonstrate this by adding the TransferState module to our demo application that we created.
 
-2. Avoid manipulating the DOM via `nativeElement`. 
+## Implementing Transfer State
 
-    `nativeElement` exposes the native DOM api, which does not exist on the Node.js server.
+First we must import the Transfer State module on both the clinet and server, we will also need HttpClient. 
 
-3. Memory leaks can be a showstopper on the Node.js server.
+In `app.module.ts`:
 
-4. Avoid long running asynchronous operations during the page load where possible.
+```ts
+...
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+...
 
-    Angular Universal will wait for these to finish before serving up `index.html`.
+imports: [
+    ...
+    BrowserTransferStateModule,
+    HttpClient,
+    ...
+],
+```
 
-5. Set up your Express server to use appropriate middleware such as `compression`?
+In `app.server.ts`:
 
-6. 
+```ts
+...
+import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
+...
+
+imports: [
+    ...
+    ServerTransferStateModule,
+    ...
+],
+```
+
+Next, lets create a service which will make a http request to fetch us some film objects from the [Ghibli api](https://ghibliapi.herokuapp.com/).
+
+```ts
+
+```
 
 ## Conclusions
+
+// TODO
