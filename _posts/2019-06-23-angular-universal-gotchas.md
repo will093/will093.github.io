@@ -10,7 +10,7 @@ Angular Universal is a technology which allows you to create Angular apps that r
 
 While for the most part your Angular application should run on the server exactly as it does in the browser, there are a few gotchas, and a few adaptions you must make to your codebase for it to run smoothly as an Angular Universal app.
 
-In this article I will talk address these gotchas and discuss how you can avoid them.
+In this article I will address these gotchas, and discuss how you can work around them.
 
 ## 1) Avoid referencing `window`, `document` and other DOM specific globals
 
