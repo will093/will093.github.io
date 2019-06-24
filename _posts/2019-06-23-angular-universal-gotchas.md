@@ -53,7 +53,9 @@ export class MyComponent {
 
 Note that in the above, we are not actually working directly with the global values `document` and `window`. Instead, we inject them via Angular's dependency injection - this keeps our code decoupled and testable, and gives us the option to later inject different values for these Injectables based on the environment. 
 
-`document` is injectable via the `DOCUMENT` Injection Token which is part of Angular. To inject `window` in this way we must implement something ourselves by creating a `WindowRefService`:
+`document` is injectable via the `DOCUMENT` Injection Token which is part of Angular In Node, this will inject a [domino](https://www.npmjs.com/package/domino) implementation of `document`. 
+
+To inject `window` in this way we must implement something ourselves by creating a `WindowRefService`:
 
 
 ```ts
@@ -106,13 +108,15 @@ These shims will allow our 3rd party library to access the `window` or `document
 A full example of a `server.ts` file which uses this approach can be found [here](https://github.com/Angular-RU/angular-universal-starter/blob/master/server.ts).
 
 
-## 2) Avoid manipulating the DOM via `nativeElement`. 
+## 2) Avoid manipulating the DOM via `nativeElement` (Angular < 6.1.0 only). 
 
 We often need to manipulate the DOM directly in some way, and in Angular we are able to manipulate a native DOM element using the `nativeElement` property of an [ElementRef](https://angular.io/api/core/ElementRef). 
 
 `nativeElement` exposes a HTML element from the DOM via the [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) interface. But as this is part of the native DOM api, it does not exist in Node.
 
- As a result of this, code such as the following won't work in a Universal app, as `nativeElement`will be `undefined` on the `Node.js` server.
+**In Angular >= 6.1.0**, Angular Universal uses [domino](https://www.npmjs.com/package/domino) as an implementation of the DOM in Node, and the `nativeElement` property of `ElementRef` exposes the `domino` implementation of `HTMLElement`. This means that we can now manipulate the DOM directly - in the browser `nativeElement` will give us a reference to a `HTMLElement` from the native browser DOM, while in Node it will give us a reference to a `domino` implementation of `HTMLElement`.
+
+However, **prior to Angular 6.1.0**, code such as the following won't work in a Universal app, as `nativeElement` will be `undefined` on a Node server.
 
 ```ts
 ngOnInit() {
@@ -162,7 +166,7 @@ In a browser rendered app, if a http request which loads data for some ui elemen
 
 When a page renders on the server in a Universal app, a http request which takes a long period of time will block the server render until it receives a response, and increase the load time of the page (ie. the time before the user can begin seeing and interacting with some elements of the page).
 
-You should take the above into consideration when designing your application - if a http request is slow and is blocking the server render of a page, could that request be deferred from the first render and made after the user clicks a button or interacts with the page in some way?
+You should take the above into consideration when designing your application - if a http request is slow and is blocking the server render of a page, could that request be deferred from the first render and made after the user clicks a button or interacts with the page in some way? Could the page be cached by the server if it's content doesn't update often?
 
 # Conclusion
 
