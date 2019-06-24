@@ -53,7 +53,7 @@ export class MyComponent {
 
 Note that in the above, we are not actually working directly with the global values `document` and `window`. Instead, we inject them via Angular's dependency injection - this keeps our code decoupled and testable, and gives us the option to later inject different values for these Injectables based on the environment. 
 
-`document` is injectable via the `DOCUMENT` Injection Token which is part of Angular In Node, this will inject a [domino](https://www.npmjs.com/package/domino) implementation of `document`. 
+`document` is injectable via the `DOCUMENT` Injection Token which is part of Angular. In Node, this will inject a [domino](https://www.npmjs.com/package/domino) implementation of `document`. 
 
 To inject `window` in this way we must implement something ourselves by creating a `WindowRefService`:
 
@@ -114,7 +114,7 @@ We often need to manipulate the DOM directly in some way, and in Angular we are 
 
 `nativeElement` exposes a HTML element from the DOM via the [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) interface. But as this is part of the native DOM api, it does not exist in Node.
 
-**In Angular >= 6.1.0**, Angular Universal uses [domino](https://www.npmjs.com/package/domino) as an implementation of the DOM in Node, and the `nativeElement` property of `ElementRef` exposes the `domino` implementation of `HTMLElement`. This means that we can now manipulate the DOM directly - in the browser `nativeElement` will give us a reference to a `HTMLElement` from the native browser DOM, while in Node it will give us a reference to a `domino` implementation of `HTMLElement`.
+**In Angular >= 6.1.0**, Angular Universal uses [domino](https://www.npmjs.com/package/domino) as an implementation of the DOM in Node, and the `nativeElement` property of `ElementRef` exposes the `domino` implementation of `HTMLElement`. This means that we can now manipulate the DOM directly - in the browser `nativeElement` will give us a reference to the native browser DOM implementation of `HTMLElement`, while in Node it will give us a reference to a `domino` implementation of `HTMLElement`.
 
 However, **prior to Angular 6.1.0**, code such as the following won't work in a Universal app, as `nativeElement` will be `undefined` on a Node server.
 
