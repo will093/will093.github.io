@@ -36,9 +36,9 @@ There are [3 main reasons](https://angular.io/guide/universal#why-use-server-sid
 
 At this point it is worth touching on another solution - prerendering - which achieves the same thing as universal rendering, but in a different way.
 
-## Angular prerendering
+## Prerendering
 
-Angular prerendering aims to solve the same problem as Angular Universal. 
+Prerendering aims to solve the same problem as Angular Universal. 
 
 In a nutshell, prerendering also serves up a server rendered version of your site which the client rendered version will then 'take over from'. How prerendering differs from universal rendering is that each page/route of your site is rendered at build time rather than run time. 
 
@@ -47,19 +47,22 @@ Prerendering has both advantages and disadvantages compared to universal renderi
 The **advantages** are:
 
 * Prerendering removes the overhead of running a Node.js server in your production environment.
+* Prerendering will result in a faster page load than universal rendering. This is because at runtime, all the pages of your site have already been rendered and simply need to be served as static files.
 
 The **disadvantages** are:
 
 * You must rebuild and deploy your site any time that any content changes.
 * Prerendering generally won't work for sites with route parameters.
 
-For sites which do not regularly update their content and do not have any 'dynamic' route parameters, prerendering is usually the simpler and better solution.
+For sites which do not regularly update their content and do not have any 'dynamic' route parameters, prerendering is usually the simpler and better solution. 
+
+I recommend [this tutorial](https://medium.com/@maciejtreder/prerender-angular-application-be-seo-ae1183c621cb) for getting started with prerendering in Angular.
 
 # How Angular Universal works
 
 Lets first look at what happens when an Angular single page application loads, and then compare this to what happens with Angular Universal.
 
-## Browser rendered application
+## Angular single page application
 
 The sequence of events through which the page is loaded when a user navigates to an Angular single page application goes like this:
 
@@ -88,7 +91,7 @@ The sequence of events through which the page is loaded when a user navigates to
 
 5. The Angular application bootstraps in the browser and renders inside of `app-root`.
 
-## Universal application
+## Angular Universal application
 
 When a user navigates to an Angular Universal application, the sequence of events through which the page is loaded goes like this:
 
@@ -154,7 +157,7 @@ Well done! You have just created, built and served an Angular Universal applicat
 
 ![Ghibli demo application](/images/angular-universal-for-angular/ghibli-demo-application.jpg)
 
-If we look at the codebase for this application, we see that Angular has made quite a few changes in order to transform in into a Universal app - we will take a look at these now.
+If we look at the codebase for this application, we see that Angular has made quite a few changes in order to transform it into a Universal app - we will take a look at these now.
 
 # A deep dive into an Angular Universal app
 
@@ -412,7 +415,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { StateKey, TransferState, makeStateKey } from '@angular/platform-browser';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { shareReplay, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class TransferStateInterceptor implements HttpInterceptor {
@@ -464,19 +467,23 @@ Now if we rebuild and run the app, we see that the flicker on the initial page l
 
 But how does this work? How does the server transfer this state data to the client?
 
-If in the browser we go to the network tab and look inside of the `index.html`, we see the following script at the bottom of the file:
+If in the browser we go to the network tab and look inside of the `index.html` which gets served up for our application, we see the following at the bottom of the file:
 
+```html
 <script id="serverApp-state" type="application/json">{&q;https://ghibliapi.herokuapp.com/films&q;:[{&q;id&q;:&q;4e236f34-b981-41c3-8c65-f8c9000b94e7&q;,&q;title&q;:&q;Only Yesterday&q...</script>
+```
 
-State Transfer stores the application state data inside of a script which gets appended to the end of `index.html` during the server render.
+We can see here that State Transfer stores the application state data inside of a script which gets appended to the end of `index.html` during the server render!
 
 ## Conclusions
 
-In this article, we went through the reasons why you might use Angular Universal, what is alternatives are, and how Angular Universal works at a high level. 
+In this article, we went through the reasons why you might use Angular Universal, what the alternatives are, and how Angular Universal works at a high level. 
 
-We then looked at how to get started with Universal by transforming an existing Angular application into an Angular Universal app. Next, we did a deep dive into the code which gets generated when we create a Universal app with the Angular CLI tools. Finally we went through how to add Angular `TransferState` to an application, and implemented an interceptor to handle state transfer functionality.
+We then looked at how to get started with Universal by transforming an existing Angular application into an Angular Universal app, and we did a deep dive into the code which gets generated when we create a Universal app with the Angular CLI tools. 
 
-The completed Angular Universal Ghibli Demo application can be found [here](https://github.com/will093/universal-ghibli-demo/tree/universal-app).
+Finally we went through how to add the Angular `TransferState` module into an application, and implemented an interceptor to handle state transfer functionality.
+
+The code for the completed Angular Universal Ghibli Demo application can be found [here](https://github.com/will093/universal-ghibli-demo/tree/universal-app).
 
 If you found this article useful, I recommend also reading my [Angular Universal gotchas](https://willtaylor.blog/angular-universal-gotchas) article.
 
