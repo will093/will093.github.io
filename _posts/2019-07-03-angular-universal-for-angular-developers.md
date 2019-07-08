@@ -6,7 +6,7 @@ published: false
 versions: Angular 8.x.x
 ---
 
-Angular Universal is a technology that allows you to create Angular apps which render both in the browser and on a Node.js server. Unlike a normal browser rendered Angular app (single page application), a Universal app is indexable by search engines and social media crawlers, allowing it to reap the benefits of SEO.
+Angular Universal is a technology which allows you to create Angular apps that render both in the browser and on a Node.js server. Unlike a normal browser rendered Angular app (single page application), a Universal app is indexable by search engines and social media crawlers, allowing it to reap the benefits of SEO.
 
 This article assumes some experience working with Angular - it is aimed at Angular developers looking to learn about Angular Universal, and pairs nicely with my [Angular Universal gotchas](https://willtaylor.blog/angular-universal-gotchas) article.
 
@@ -26,7 +26,7 @@ There are [3 main reasons](https://angular.io/guide/universal#why-use-server-sid
 
 2. **To improve performance of devices which don't support JavaScript**
 
-    These devices will be unable to run a browser rendered Angular app. With Angular Universal, you provide a server rendered version of the page, without any JavaScript. Whether this no JavaScript version of the page is actually any use to the user will depend on the application in question.
+    These devices will be unable to run a browser rendered Angular app. With Angular Universal, you provide a server rendered version of the page, without any JavaScript. Whether this 'JavaScript free' version of the page is actually any use to the user will depend on the application in question.
 
 3. **To decrease the (perceived) first page load time**
 
@@ -56,7 +56,7 @@ The **disadvantages** are:
 
 For sites which do not regularly update their content and do not have any 'dynamic' route parameters, prerendering is usually the simpler and better solution. 
 
-I recommend [this tutorial](https://medium.com/@maciejtreder/prerender-angular-application-be-seo-ae1183c621cb) for getting started with prerendering in Angular.
+I will not discuss prerendering any further in this article, but I recommend [this tutorial](https://medium.com/@maciejtreder/prerender-angular-application-be-seo-ae1183c621cb) for getting started with prerendering in Angular.
 
 # How Angular Universal works
 
@@ -127,7 +127,7 @@ When a user navigates to an Angular Universal application, the sequence of event
 
 4. The JavaScript and CSS files referenced in `index.html` are downloaded.
 
-5. The Angular application bootstraps in the browser and renders inside of `app-root`, 'taking over from' the server rendered version of the app.
+5. The Angular application bootstraps in the browser and renders inside of `app-root`, and takes over from the server rendered version of the app.
 
 # Getting started with Universal
 
@@ -358,7 +358,7 @@ Also, 2 files were modified:
     });
     ```
 
-    The above waits for the DOM to fully load before rendering the Angular app in the browser. This is necessary for the Angular TransferState module (whcih we will discuss in the next section) to work correctly.
+    The above waits for the DOM to fully load before rendering the Angular app in the browser. This is necessary for the Angular TransferState module (which we will discuss in the next section) to work correctly.
 
 # Transfer State
 
@@ -371,7 +371,9 @@ The `TransferState` module provides a solution for transferring application stat
 
 > TransferState - A key value store which gets transferred from the application on the server side to the application on the client side.
 
-We can use this module to store responses from Http requests - we give each response a key, and then retrieve it on the client. Lets demonstrate this by adding the `TransferState` module to our demo application that we created.
+We can use this module to store responses from http requests - we give each response a key, and then retrieve it on the client. 
+
+Lets demonstrate this by adding the `TransferState` module to our demo application that we created earlier.
 
 ## Implementing Transfer State
 
@@ -473,7 +475,7 @@ If in the browser we go to the network tab and look inside of the `index.html` w
 <script id="serverApp-state" type="application/json">{&q;https://ghibliapi.herokuapp.com/films&q;:[{&q;id&q;:&q;4e236f34-b981-41c3-8c65-f8c9000b94e7&q;,&q;title&q;:&q;Only Yesterday&q...</script>
 ```
 
-We can see here that State Transfer stores the application state data inside of a script which gets appended to the end of `index.html` during the server render!
+We can see here that `TransferState` stores the application state data inside of a script which gets appended to the end of `index.html` during the server render!
 
 ## Conclusions
 
