@@ -2,7 +2,7 @@
 layout: post
 title: "Angular Universal for Angular developers"
 image: "/images/angular-universal-for-angular/night-sky-1.jpg"
-published: false
+published: true
 versions: Angular 8.x.x
 ---
 
