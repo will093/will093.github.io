@@ -2,7 +2,7 @@
 layout: post
 title: "The questions that you should be asking yourself when you install an npm package"
 image: "/images/assessing-npm-packages/question.jpg"
-published: false
+published: true
 versions: npm 6.x.x
 ---
 
