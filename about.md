@@ -5,9 +5,13 @@ permalink: /about/
 published: true
 ---
 
-I am Web developer, Angular expert and JavaScript enthusiast from the vibrant city of Bristol, UK.
+My name is Will Taylor, I live in the vibrant city of Bristol, UK.
 
-One thing I have realised in my 4 years as a professional web developer is that I really enjoy learning. I enjoy learning new technologies, languages and concepts, as well as learning in order to gain a deeper understanding of things I already (think I) know. I hope to share some of what I learn with others through this blog.
+I am a freelance full stack developer specialising in Angular and JavaScript, and I have been doing web development professionally for around 4 1/2 years. 
+
+When I am not programming something, I am usually engaged in one of the many other things I am passionate about, such as music, growing fruit and vegetables (and mushrooms), bouldering, hiking, and wild camping.
+
+I started willtaylor.blog because I wanted a place to document some of the more useful things I have done and more valuable lessons that I have learned from my work. In doing so I have discovered that I actually quite enjoy writing, and the process of iteratively improving my writing. I have also gained a new guilty pleasure of continuosly checking my Google Analytics to examine my very slowly increasing trickle of traffic :)
 
 ### Contact me
 
