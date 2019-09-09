@@ -2,7 +2,10 @@
 layout: default
 ---
 
-<article class="post">
+<article class="post">  
+  <meta name="og:title" content="{{ page.title }}"></meta>
+  <meta name="og:type" content="article"></meta>
+  <meta name="og:image" content="{{ site.url }}{{ page.image }}"></meta>
   <meta name="twitter:card" content="summary"></meta>
   <meta name="twitter:site" content="@William62989371" />
   <meta name="twitter:title" content="{{ page.title }}" />
