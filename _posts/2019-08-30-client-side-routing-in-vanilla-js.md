@@ -2,7 +2,7 @@
 layout: post
 title: "Understanding client side routing by implementing a router in Vanilla JS"
 image: "/images/client-side-routing-vanilla-js/train-track.jpg"
-published: false
+published: true
 ---
 
 In contrast to traditional server side routing, single page application frameworks use client side routing to handle navigation around an application. This client side routing is usually handled by some routing module or package, and for many developers how this routing actually works is something of a mystery. 
