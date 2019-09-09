@@ -1,29 +1,33 @@
 ---
 layout: post
-title: "Implementing client side routing in Vanilla JS"
+title: "Understanding client side routing by implementing a router in Vanilla JS"
 image: "/images/client-side-routing-vanilla-js/train-track.jpg"
 published: false
 ---
 
-In contrast to traditional server side routing, SPA frameworks such as Angular, React, Hyperapp and Vue use client side routing to handle navigation around an application. This client side routing is usually handled by some routing module or package, and for many developers how this routing actually works is something of a mystery. 
+In contrast to traditional server side routing, single page application frameworks use client side routing to handle navigation around an application. This client side routing is usually handled by some routing module or package, and for many developers how this routing actually works is something of a mystery. 
 
-The purpose of this article is to to take a deeper look at client side routing, and how we can write a simple implementation ourselves, using plain old Vanilla JS.
+The purpose of this article is to help developers to gain a better understanding of how client side routing works in frameworks such as Angular, React and Vue.
 
-First, will look at the basics of client side routing, including the behaviour we expect from single page application routing, and the challenges we will face when implementing it. Next, we will build a simple application with basic routing in Vanilla JS. Finally, we will think about the more advanced features that we usually see in client side routing packages, and implement one of them ourselves - parameterised routes.
+We will start with the basics and take a look at what client side routing is. Next, we will build a simple application with basic client side routing in Vanilla JS. Finally, we will think about the more advanced features that we usually see in client side routing packages, and implement one of them ourselves - parameterised routes.
 
 The code for the completed client side routing demo application can be found in [this Github repository](https://github.com/will093/client-side-routing-vanilla-js).
 
-Also, as a disclaimer, let me state that more than anything else this article is just for learning purposes, most of the time you are best off just using the router package or module which comes with your framework of choice. 
+Also, as a disclaimer, let me state once again that more than anything else this article is just intended to help you understand how client side routing works - for production code you are usually best off just using the router package or module which comes with your framework of choice. 
 
-# Routing basics
+# What is client side routing?
 
-First lets think about the behaviour that we have grown to expect from a single page application with routing.
+Client side routing is a type of routing where as the user navigates around the application or website no full page reloads take placeou, even when the page's URL changes. Instead, JavaScript is used to update the URL and fetch and display new content.
 
-* When the application is first loaded, the route which is loaded and the content which is displayed is determined by the URL path.
+We can by more specific and pin down the exact behaviour that we have grown to expect from a single page application with routing.
+
+* When the application is first loaded, the route which is loaded and the content displayed are determined by the URL path.
 * When the user navigates around by clicking a link within the application, the URL changes. Without a full page reload, a new route with new content is loaded, based on the new URL.
-* When the user navigates by clicking the browser forward/back buttons, they move through the stack of routes that they previously visited.
+* When the user navigates by clicking the browser forward/back buttons, they move back or forward through the routes that they previously visited.
 
-If we think about implementing an application with this behaviour ourselves, there are two main technical challenges which we are confronted with:
+# Implementing client side routing
+
+If we think about implementing an application with the above behaviour ourselves, there are two main technical challenges which we are confronted with:
 
 1. How do we change the URL without causing a page reload, and also preserve the behaviour of the browser forward/back buttons?
 2. How do we map any given URL to the appropriate template (or component)?
@@ -375,9 +379,9 @@ It goes to show that what we have here is a very basic implementation of client 
 
 # Conclusion
 
-We have explored how client side routing works, and seen how we can implement basic client side routing ourselves.
+We have explored what client side routing is, and seen how we can implement client side routing in Vanilla JS.
 
-Our router is far from feature complete, and if you are looking to learn more about client side routing then you could try to extend the router with more features, such as:
+Our implementation is very basic, and is far from feature complete. If you are looking to learn more about client side routing then you could try to extend the router with more features, such as:
 
 * Child routes.
 * Integration with React or Hyperapp components.
@@ -388,7 +392,7 @@ Remember, you can find the code for the client side routing demo application in 
 
 Finally, I would like to add that I found that looking at the [code for Hyperapp router](https://github.com/jorgebucaran/hyperapp-router) really helped me to understand how client side routing works.
 
-# Helpful Resources
+# Helpful Resourcesunderst
 
 The following were really helpful for writing this article, and I very much recommend them as further reading:
 
