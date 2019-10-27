@@ -19,6 +19,12 @@
     }
 }
 
+.entry {
+  a {
+    text-decoration: underline;
+  }
+}
+
 .posts > .post {
     margin-bottom: 20px;
     border: 1px solid $lightGray;

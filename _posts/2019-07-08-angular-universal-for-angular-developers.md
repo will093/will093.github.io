@@ -135,7 +135,7 @@ It is super easy to set up an Angular Universal application with the Angular CLI
 
 For the purposes of this article you can clone the following repo, containing an Angular single page application which we will later transform into an Angular Universal application.
 
-```
+```bash
 git clone git@github.com:will093/universal-ghibli-demo.git
 ```
 
@@ -143,13 +143,13 @@ If you build and serve this application, you will see that what we have is an ap
 
 Angular provides tools for transforming a normal Angular application into a Universal app, using the following command:
 
-```
+```bash
 ng add @nguniversal/express-engine --clientProject universal-ghibli-demo
 ```
 
 And then to build and serve the application with universal rendering:
 
-```
+```bash
 npm run build:ssr && npm run serve:ssr
 ```
 
@@ -197,7 +197,8 @@ const DIST_FOLDER = join(process.cwd(), 'dist/browser');
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const {AppServerModuleNgFactory, LAZY_MODULE_MAP} = require('./dist/server/main');
 
-// Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
+// Our Universal express-engine 
+// (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 app.engine('html', ngExpressEngine({
   bootstrap: AppServerModuleNgFactory,
   providers: [
@@ -265,7 +266,8 @@ In this first section we:
 On to the next section:
 
 ```ts
-// Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
+// Our Universal express-engine 
+// (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
 app.engine('html', ngExpressEngine({
   bootstrap: AppServerModuleNgFactory,
   providers: [
@@ -447,14 +449,16 @@ export class TransferStateInterceptor implements HttpInterceptor {
       );
     }
 
-    // For any http requests made in the browser, first check State Transfer for a response corresponding to the request url.
+    // For any http requests made in the browser, first check State Transfer for a 
+    // response corresponding to the request url.
     if (isPlatformBrowser(this.platformId)) {
       const transferStateResponse = this.transferState.get<any>(stateKey, null);
       if (transferStateResponse) {
         const response = new HttpResponse({ body: transferStateResponse, status: 200 });
 
-        // Remove the response from state transfer, so any future requests to the same url go to
-        // the network (this avoids us creating an implicit/unintentional caching mechanism).
+        // Remove the response from state transfer, so any future requests to 
+        // the same url go to the network (this avoids us creating an 
+        // implicit/unintentional caching mechanism).
         this.transferState.remove(stateKey);
         return of(response);
       } else {

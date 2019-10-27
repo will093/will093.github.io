@@ -23,7 +23,7 @@ The demo application from which all the code snippets in this article are taken 
 
 We will start by creating a basic web application using a Yeoman generator, and then explore how we can add offline functionality using Service Worker.
 
-```
+```bash
 npm install --global yo gulp-cli bower generator-webapp
 mkdir service-worker-tutorial
 cd service-worker-tutorial
@@ -34,7 +34,7 @@ You will be presented with a series of options for the project - when prompted, 
 
 Now to run our application and automatically open the browser:
 
-```
+```bash
 gulp serve
 ```
 

@@ -10,8 +10,21 @@ div.highlight {
   overflow: auto;
 }
 
-code {
-  font-family:'Bitstream Vera Sans Mono','Courier', monospace;
+
+pre {
+  code {
+    font-size: 0.85rem;
+    background: transparent;
+  }
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
+}
+
+p code, li > code {
+  font-size: 1rem;
+  color: lighten($primary, 15%);
+  background: $lightGray;
+  padding: 0.05rem 0.3rem 0.1rem 0.3rem;
+  box-shadow: none;
 }
 
 .highlight .c { color: #586E75 } /* Comment */

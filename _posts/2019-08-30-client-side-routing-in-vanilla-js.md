@@ -89,13 +89,13 @@ To serve our application, we will use an npm package called `http-server-spa`. T
 
 To install `http-server-spa`, run:
 
-```
+```bash
 npm install http-server-spa -g
 ```
 
 Now, to run our application, from the root of your project run:
 
-```
+```bash
 http-server-spa . ./index.html
 ```
 
@@ -148,7 +148,8 @@ class Router {
     const url = `/${urlSegments.join('/')}`;
     history.pushState({}, '', url);
 
-    // Append the template of the matched route to the DOM, inside the element with attribute data-router-outlet.
+    // Append the template of the matched route to the DOM, 
+    // inside the element with attribute data-router-outlet.
     const routerOutletElement = document.querySelectorAll('[data-router-outlet]')[0];
     routerOutletElement.innerHTML = matchedRoute.template;
   }
@@ -162,13 +163,16 @@ class Router {
       // string. Slice the array at index 1 to ignore this empty string.
       const routePathSegments = route.path.split('/').slice(1);
 
-      // If there are different numbers of segments, then the route does not match the URL.
+      // If there are different numbers of segments, then the route 
+      // does not match the URL.
       if (routePathSegments.length !== urlSegments.length) {
         return false;
       }
 
-      // If each segment in the url matches the corresponding route path, then the route is matched.
-      return routePathSegments.every((routePathSegment, i) => routePathSegment === urlSegments[i]);
+      // If each segment in the url matches the corresponding route path, 
+      // then the route is matched.
+      return routePathSegments
+        .every((routePathSegment, i) => routePathSegment === urlSegments[i]);
     });
     return matchedRoute;
   }
@@ -322,9 +326,9 @@ _matchUrlToRoute(urlSegments) {
 }
 ```
 
-Now, for a URL to match a route path, each segment of the route path must either match the URL segment with the same index, or start with a `':'`, which signifies that it is a parametersied route parameter and so will take the value of the URL segment with the same index.
+Now, for a URL to match a route path, each segment of the route path must either match the URL segment with the same index, or start with a `:`, which signifies that it is a parametersied route parameter and so will take the value of the URL segment with the same index.
 
-After a route is matched, we pull out the route parameters into an object. The key for each parameter is the value following the `':'` in the parameterised route segment, and the value is the URL segment with the same index as that parameterised route segment.
+After a route is matched, we pull out the route parameters into an object. The key for each parameter is the value following the `:` in the parameterised route segment, and the value is the URL segment with the same index as that parameterised route segment.
 
 We also need to update the last line of our `loadRoute` function, in order to wire everything up and render the templates for each route with its route params.
 
@@ -365,7 +369,7 @@ Inserting HTML using `innerHTML` won't execute any scripts that we include in a 
 
 If we encode our html string using [this tool](https://meyerweb.com/eric/tools/dencoder/), we can build the following product route url from the encoded string:
 
-```
+```bash
 /products/%3Cimg%20src%3D%22empty%22%20onerror%3D%22alert(%27Damn%20our%20router%20is%20rubbish%27)%3B%22%2F%3E
 ```
 

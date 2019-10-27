@@ -83,7 +83,7 @@ This strategy will work for code which we write ourselves, but what if we are us
 
 JavaScript within a third party library may throw errors due to attempting to access these globals during our server render, but we have no control over the library's code. In this case we can install a library such as [domino](https://www.npmjs.com/package/domino), and then create a shim for the `window` and `document` objects in the server.
 
-```
+```bash
 npm install domino
 ```
 

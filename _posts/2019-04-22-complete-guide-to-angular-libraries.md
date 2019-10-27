@@ -31,7 +31,7 @@ While there are lots of cases where an Angular library is a good fit for a proje
 
 We will create an Angular library, as well as a demo application to consume this library. We can create these with the following commands:
 
-```
+```bash
 ng new example-component-library --create-application=false
 cd example-component-library
 ng generate library example-component-library
@@ -44,7 +44,7 @@ If we now look inside of the workspace which we just created, we can see that th
 
 Lets now build our library and see what happens:
 
-```
+```bash
 ng build --project=example-component-library
 ```
 
@@ -70,7 +70,7 @@ First, delete the existing `example-component-library` module, component and ser
 Next we will add a component, a pipe and a directive. We will follow a pattern of adding one component per module - this will allow a consuming application to import only the modules of the library which it is interested in, and then for all other modules to be tree shaken during the build process. I highly recommend doing this, as it will really make a difference to the size of your application bundles as the library grows.  
 
 
-```
+```bash
 ng generate module components/foo
 ng generate component components/foo
 ng generate module pipes/bar
@@ -94,7 +94,7 @@ Of course this structure can be adjusted based on you or your team's preference,
 
 Next we must add each of the components we created to the `exports` of its module:
 
-```
+```ts
 import { CommonModule } from '@angular/common';
 import { FooComponent } from './foo.component';
 import { NgModule } from '@angular/core';
@@ -128,7 +128,7 @@ export * from './lib/directives/baz/baz.directive';
 
 Now all we have to do is rebuild the library, and it will be ready to consume the library from an application.
 
-```
+```bash
 ng build --project=example-component-library
 ```
 
@@ -138,20 +138,20 @@ ng build --project=example-component-library
 
 During development the best way to consume our library is using [npm link](https://docs.npmjs.com/cli/link.html). This will allow us to symlink from a directory in our consuming application's node modules folder to the compiled application in the library's dist folder.
 
-```
+```bash
 cd dist/example-component-library
 npm link
 ```
 
 We can link an Angular project to this library from anywhere on our local machine. From the project root folder:
 
-```
+```bash
 npm link example-component-library
 ```
 
 If we now run the library with the watch flag, and at the same time run `ng serve` in another terminal window.
 
-```
+```bash
 ng build --project=example-component-library
 ng serve
 ```
@@ -164,13 +164,13 @@ For production, we will publish our library to npm, and then have it installed i
 
 First, you will need to [create an npm account](https://www.npmjs.com/signup). Now login from the command line:
 
-```
+```bash
 npm login
 ```
 
 From the project root folder:
 
-```
+```bash
 cd dist/example-component-library
 npm publish
 ```

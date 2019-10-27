@@ -43,7 +43,7 @@ However, you may not want to choose a PWA as a solution when:
 
 First we will build a simple Angular 7 app which, which we will later transform into a PWA. The source code for the finished application is available [here](https://github.com/will093/pwa-tutorial).
 
-```
+```bash
 ng new pwa-tutorial --style=scss
 ```
 
@@ -61,7 +61,7 @@ For the next step, we are going to use the Angular `HttpClient` module, so impor
 
 Create a folder named `services`, and inside of this add a file named `todo-data.service.ts` and add the following:
 
-```
+```ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -290,12 +290,12 @@ After simply adding the out of the box Angular PWA functionality, lets see how t
 
 Firstly, lets install `http-server` globally:
 
-```
+```bash
 npm i http-server -g
 ```
 
 Now to build and serve the app:
-```
+```bash
 ng build --prod
 cd dist/pwa-tutorial
 ```
