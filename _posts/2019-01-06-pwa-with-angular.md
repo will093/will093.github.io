@@ -180,7 +180,7 @@ Then inside of `styles.scss`:
 
 Now the initial implementation of our app is complete!
 
-![Initial Application](/images/angular7-pwa/todo-app.png)
+![Initial Application](/images/angular7-pwa/todo-app.jpg)
 
 ## Auditing the app using Lighthouse
 
