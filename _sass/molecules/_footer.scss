@@ -26,3 +26,13 @@ footer {
     padding-left: 10px;
   }
 }
+
+@include mobile {
+  .social-links a {
+    padding-left: 2px;
+  }
+  .copyright {
+    max-width: 60px;
+    font-size: 0.7rem;
+  }
+}
