@@ -28,6 +28,9 @@ footer {
 }
 
 @include mobile {
+  footer {
+    justify-content: space-around;
+  }
   .social-links a {
     padding-left: 2px;
   }
