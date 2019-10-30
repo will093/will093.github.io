@@ -29,7 +29,9 @@ function add(a, b) {
 }
 ```
 
-The reason this is a pure function is that the return value of a call to this function is determined entirely by the arguments with which it is called, and it doesn't modify any variables outside of the function. 
+The reason this is a pure function is that the return value of a call to this function is determined entirely by the arguments with which it is called, and it doesn't modify any non-local state. 
+
+Note that by non-local state, I mean anything other than state stored in local variables which are declared within the function - eg. `window`, `this` and variables declared outside the scope of the function are all non-local state.
 
 In contrast, take a look at the following function:
 
@@ -42,7 +44,7 @@ function setAgeToSelected(person) {
 
 This is a great example of impure function, it probably could not be any less pure if it tried! 
 
-1. It is impure because it mutates the state of the `person` object passed to it as an argument, 
+1. It is impure because it mutates the state of the `person` object passed to it as an argument.
 
 2. It is impure because it sets `person.age` to the value of a variable external to the function.
 
@@ -197,9 +199,7 @@ function addThenSquare(a, b) {
 }
 ```
 
-All of the above functions are pure. 
-
-`add` and `square` clearly do not have any side effects or side causes. `addThenSquare` is essentially just composed of these 2 pure functions, so it is also pure itself.
+All of the above functions are pure. `add` and `square` clearly do not have any side effects or side causes. `addThenSquare` is essentially just composed of these 2 pure functions, so it is also pure itself.
 
 # How and when to use pure functions in JavaScript?
 
@@ -213,8 +213,16 @@ The most important thing is to be aware whenever you write a function of whether
 
 * If the function's return value depends on a non-local variable, can I instead pass that variable to the function as an argument?
 
+As a final point, patterns such as redux offer a way to structure an application in a way that certain parts of the codebase (reducers and selectors) must only contain pure functions, while other parts may contain side effects/impure functions.
+
 # Conclusion
 
 We have looked at what a pure function is, the benefits of using pure functions in your code, and some examples of pure and impure functions. Finally, we looked an how and when to use pure functions. 
 
 You should now be at a point where you can utilise pure functions in order to write cleaner, more readable, more performant code. An understanding of pure functions is also a great starting point for learning functional programming!
+
+# Helpful Resources
+
+The following were really helpful for writing this article, and I very much recommend them as further reading:
+
+* <https://github.com/getify/Functional-Light-JS>
