@@ -2,7 +2,7 @@
 layout: post
 title: "Pure functions in JavaScript"
 image: "/images/pure-functions-in-js/cupcake-machine.jpg"
-published: false
+published: true
 ---
 
 Pure functions are a really great thing! 
