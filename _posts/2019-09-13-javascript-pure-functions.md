@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Pure functions in JavaScript"
+title: "An introduction to pure functions in JavaScript"
 image: "/images/pure-functions-in-js/cupcake-machine.jpg"
 published: true
 ---
@@ -54,7 +54,7 @@ More formally, a pure function must satisfy the following 2 requirements:
 
 1. **The return value depends only on the arguments passed in.**
 
-    A pure function must not depend on the value of any variable external to the function.
+    A pure function must not depend on the value of any variable external to the function. Note that it is acceptable for a pure function to depend on a constant external to the function.
 
 2. **No side effects.**
 
@@ -75,25 +75,55 @@ We have talked about what a pure function is, now lets talk about the reasons wh
     Just by thinking a bit more about function purity and keeping functions pure where possible you can avoid code like this:
 
     ```js
-    function createNonLocalStateMutationBugs(someArray) {
-        // Modify some global state
-        window.someVariable = 'new value';
+    function reverseAndJoin(wordsArray) {
         // Use a mutating method on the array passed in.
-        someArray.reverse();
+        const reversed = wordsArray.reverse();
+        const reversedAndJoined = reversed.join(', ');
+        // Modify some global state
+        window.reversedAndJoined = reversedAndJoined;
     }
+    ```
+
+    Now think about when we call this function:
+
+    ```js
+    let wordsArray = ['One', 'Two', 'Three'];
+    reverseAndJoin(wordsArray);
     ``` 
 
-    Okay, an extreme example - but I expect you have worked on a project where code not too dissimilar to this has caused issues.
+    We have no idea what is going on just by looking at the call site. It is not obvious how we obtain the result of the work done by this function, or that `wordsArray` has been reversed. 
+    
+    Okay, an extreme example - but I expect you have worked on a project where code not too dissimilar to this has caused issues. It could be refactored to something like the following:
 
-    The caveat to this point is that at the call site of a function we do not know if it is pure or not, and for pure functions to make our code easier to reason about, we need to know this. In JavaScript, the best we can do is have some kind of methodology or framework whereby particular functions within an application are kept pure by convention (such as redux). I will talk more about this later.
+    ```js
+    function reverseAndJoin(wordsArray) {
+        const reversed = [ ...wordsArray].reverse();
+        return reversed.join(', ');
+    }
+    ```
+
+    Now the call site of the function will look like this:
+
+    ```js
+    let wordsArray = ['One', 'Two', 'Three'];
+    let reversedAndJoined = reverseAndJoin(wordsArray);
+    ```
+
+    This function is very easy to reason about without having to dive into the implementation - the work done by the function is now given back in its return value, and `wordsArray` is not unexpectedly modified.
+
+    The caveat to this point is that at the call site of a function we do not know if it is pure or not, and for pure functions to make our code easier to reason about, we need to know this. In JavaScript, the best we can do is have some kind of methodology or framework whereby particular functions within an application are kept pure by convention (such as redux).
 
 2. **They are easy to unit test.**
 
     A pure function is easier to test because we don't have any sources of side effects or side causes. This means no external dependencies to mock, and no need to test that some particular side effect worked as expected.
 
     Using `jasmine`, a unit test for a pure function becomes very simple, and in fact can often be expressed a one liner:
-    
+
     ```js
+    function add(a, b) { 
+        return a + b; 
+    }
+
     // Unit test for a pure function, 'add', which adds 2 number together.
     expect(add(24, 39)).toEqual(63);
     ```
@@ -116,6 +146,8 @@ We have talked about what a pure function is, now lets talk about the reasons wh
 
 Earlier we looked at a simple example of both a pure function and an impure function. Now lets look at a few more examples and discuss *why* they are pure or impure.
 
+Note that although we categorise these functions as pure or impure, it is not always clear cut as to whether a function is pure in the technical sense, based on the formal definition that we gave above. In JavaScript it is rather difficult to make a 'watertight' pure function, that will behave as a pure function no matter what the consumer does with it.
+
 ## Examples of impure functions
 
 There are a few common ways in which a function can be impure in JavaScript, lets take a look at each of these in turn:
@@ -123,13 +155,21 @@ There are a few common ways in which a function can be impure in JavaScript, let
 1. **It mutates non-local state directly.**
 
     ```js
+    let resultArray;
     function appendToArray(myArray, item) {
-        window.myArray = [ ...myArray, item ];
-        return window.myArray
+        resultArray = [ ...myArray, item ];
     }
     ```
 
-    This is a pretty simple example of a side effect. The function is impure because it modifies the global window object.
+    This is a pretty simple example of a side effect. The function is impure because it modifies the global window object. 
+    
+    To make this into a pure function, we can just return the result instead of setting a variable:
+
+    ```js
+    function appendToArray(myArray, item) {
+        return [ ...myArray, item ];
+    }
+    ```
 
 2. **It mutates it's arguments.**
 
@@ -139,7 +179,15 @@ There are a few common ways in which a function can be impure in JavaScript, let
     }
     ```
 
-    This function may look pure at first glance, but in fact it has side effects. The array `push` method mutates the `myArray` argument - this non-local state mutation is very common and is often a cause of bugs.
+    This function may look pure at first glance, but in fact it has side effects. The array `push` method mutates `myArray` - this non-local state mutation is a very common cause of bugs. 
+
+    It is a good idea to be aware of which JavaScript array methods are [Mutator methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/prototype#Mutator_methods). If we need to use one of these methods then we can then create a copy of the array and mutate the copy instead:
+
+    ```js
+    function appendToArray(myArray, item) {
+        return ([ ...myArray ]).push(item);
+    }
+    ```
 
 3. **It mutates non-local state via it's `this` binding.**
 
@@ -153,18 +201,46 @@ There are a few common ways in which a function can be impure in JavaScript, let
     };
     ```
 
-    This is another example of a function with side effects. Here, our `add` function modifies non-local state via its `this` binding.
+    This is another example of a function with side effects. Here, our `add` function modifies non-local state via its `this` binding. 
+    
+    To make this function pure, we could simply return the result of the function and not modify the `this` binding:
+
+
+    ```js
+    let adder = {
+        add: function(a, b) {
+            return a + b;
+        },
+    };
+    ```
 
 4. **It's return value depends on non-local state.**
 
     ```js
-    let word = 'hello ';
+    let currentWord = 'hello ';
     function appendToWord(value) {
+        return `${currentWord}${value}`
+    }
+    ```
+
+    This is an example of a function with a side cause - the return value depends on the value of the non-local `currentWord` variable. 
+    
+    It is worth noting that we don't know for sure that `currentWord` is ever reassigned, but from reading the code and considering the variable name we can take an educated guess that `currentWord` will likely be reassigned at some point during the program's execution - hence we will categorise this function as impure. If `currentWord` were declared using the `const` keyword (or even declared using `let` and treated as constant), then we could consider `appendToWord` to be a pure function.
+
+    In order to make `appendToWord` a pure function, we can give the function a `word` parameter, and then pass `currentWord` as an argument:
+
+    ```js
+    let currentWord = 'hello ';
+    function appendToWord(word, value) {
         return `${word}${value}`
     }
     ```
 
-    This is an example of a side cause. The return value depends on the value of the non-local `word` variable.
+    Its usage would be:
+
+    ```js
+    const phrase = appendToWord(currentWord, 'world');
+    ```
 
 5. **It's return value depends on its `this` binding**
 
@@ -177,7 +253,16 @@ There are a few common ways in which a function can be impure in JavaScript, let
     };
     ```
 
-    This is another example of a side cause. The return value of this function depends on its `this` binding.
+    This is another example of a function with a side cause - in this case the return value of the function depends on its `this` binding. 
+    
+    To make this into a pure function, we could do something similar to the above case, and force the consumer to pass in a `word` argument.
+    ```js
+    let appender = {
+        appendToWord: function(word, value) {
+            return `${word}${value}`;
+        },
+    };
+    ```
 
 
 ## Examples of pure functions
@@ -199,21 +284,19 @@ function addThenSquare(a, b) {
 }
 ```
 
-All of the above functions are pure. `add` and `square` clearly do not have any side effects or side causes. `addThenSquare` is essentially just composed of these 2 pure functions, so it is also pure itself.
+`add` and `square` do not have any side effects or side causes and so are pure functions.
 
-# How and when to use pure functions in JavaScript?
+For `addThenSquare`, things are not quite so clear cut. Technically, we could later redefine `add` or `square` to behave differently, and so `addThenSquare` cannot be considered pure in the formal sense. 
 
-Now that you understand what a pure function is, and the benefits of using pure functions, the question is how and when to use them in your code.
+In practice, however, it would be unusual, and bad practice to redefine these functions. It is reasonable to assume that `add` and `square` will not be redefined, and so we will categorise `addThenSquare` as a pure function.
 
-Clearly, not every function you write can or should be pure. It is usually best to organise your application in such a way that particular parts of your application handle side effects, while other parts are made up of pure functions.
+# How to use pure functions in your JavaScript application?
 
-The most important thing is to be aware whenever you write a function of whether it is pure or not. By recognising this you will then be in a place to decide if the function would benefit from being pure, and if so, to ask yourself the right questions in order to make sure the function pure. 
+Now that you understand what a pure function is, and the benefits of using pure functions, the question is how and when to use them in your code. 
 
-* If the function mutates non-local state, can the state mutation instead be done by the caller, after the function call?
+Clearly, not every function you write can or should be pure. Without side effects, we cannot manipulate the DOM, update a database or make a HTTP request - in fact, by definition an application with no side effects has no observable output.
 
-* If the function's return value depends on a non-local variable, can I instead pass that variable to the function as an argument?
-
-As a final point, patterns such as redux offer a way to structure an application in a way that certain parts of the codebase (reducers and selectors) must only contain pure functions, while other parts may contain side effects/impure functions.
+The key point is to organise your application in such a way that particular parts of your application handle side effects, while other parts are made up of pure functions. Side effects should not be sprinkled throughout your codebase, but should be delegated to a particular layer within your application. Patterns such as [redux](https://redux.js.org/introduction/getting-started) can help you with this.
 
 # Conclusion
 
