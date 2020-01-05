@@ -37,7 +37,23 @@ COPY ./ ./
 CMD ["npm", "run", "dev"]
 ```
 
-TODO: talk about this.
+TODO: talk about this. Create a service...
+
+The volumes array contains 2 items. The first is what is know as a bookmark, it essentially says 'do not map this folder to anything outside of the container'. The second is a volume which maps the '/app' folder on the container to the local working directory. The overall effect of this is that the contents of the `/app` folder inside the container get mapped to our local working directory, other than the contents of `/app/node_modules`, which will use whatever exists in that folder insid ethe container.
+
+```yml
+version: "3"
+services:
+  api:
+    build: 
+      context: .
+    ports: 
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+
+```
 
 Now for our Database. We can use the existing [Postgres Image](https://hub.docker.com/_/postgres) for this. Our Express app needs to be able to talk to the database, and specifying them both as services in our docker-compose file will allow it to do so.
 
