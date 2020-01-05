@@ -2,7 +2,7 @@
 layout: post
 title: "Docker: the beginner's cheatsheet"
 image: "/images/docker-beginners-cheatsheet/containers.jpg"
-published: false
+published: true
 ---
 
 In the past few months I have started working with Docker. Initially I found that there was a lot to remember in terms of Docker's key concepts and terminology, as well as all of the CLI commands and what each of them do. 
