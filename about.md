@@ -7,11 +7,13 @@ published: true
 
 My name is Will Taylor, I live in the vibrant city of Bristol, UK.
 
-I am a freelance full stack developer specialising in Angular and JavaScript, and I have been doing web development professionally for around 4 1/2 years. 
+I am a freelance full stack developer specialising in Angular and JavaScript, and I have been practicing web development professionally for 5 years. 
 
-When I am not programming something, I am usually engaged in one of the many other things I am passionate about, such as music, growing fruit and vegetables (and mushrooms), bouldering, hiking, and wild camping.
+When I am not programming I am most often found making music, growing fruit, vegetables and mushrooms, or bouldering.
 
-I started willtaylor.blog because I wanted a place to document some of the more useful things I have done and more valuable lessons that I have learned from my work. In doing so I have discovered that I actually quite enjoy writing, and the process of iteratively improving my writing. I have also gained a new guilty pleasure of continuosly checking my Google Analytics to examine my very slowly increasing trickle of traffic :)
+### My blog
+
+I started willtaylor.blog because I wanted a place to document some of the valuable lessons that I have learned from my work, and because I find it rewarding to explain technical concepts through writing.
 
 ### Contact me
 
