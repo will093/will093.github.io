@@ -9,6 +9,9 @@ In the past few months I have started working with Docker. Initially I found tha
 
 I have created this cheatsheet to help with remembering the key Docker concepts and terminology, as well as what I have found to be the most useful Docker CLI and Docker Compose commands. Keep in mind that the list of commands give here contains just the most useful commands for those who are starting out with Docker, and is by no means exhaustive. You can find a full list of Docker commands [here](https://docs.docker.com/engine/reference/commandline/cli/).
 
+Also, I learned most of what is written in this article by doing the following Udemy course, (affiliate link) [Docker and Kubernetes: The Complete Guide](https://click.linksynergy.com/link?id=5FPU6FRy5w4&offerid=507388.1793828&type=2&murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fdocker-and-kubernetes-the-complete-guide%2F), which I recommend enroling on if you are looking to advance your knowledge of Docker further.
+
+
 # Docker Concepts
 
 These are the key concepts of Docker explained at a high level.
@@ -168,6 +171,6 @@ These commands are concerned with creating and running containers as specified i
 
 # Useful Resources
 
-The following course has been very useful to me, and is a great way to get started with Docker:
+The following course has been very useful to me, and is a great way to get started with Docker (please note that the below is an affiliate link):
 
-* <https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/> 
+* [Docker and Kubernetes: The Complete Guide](https://click.linksynergy.com/link?id=5FPU6FRy5w4&offerid=507388.1793828&type=2&murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fdocker-and-kubernetes-the-complete-guide%2F) 
