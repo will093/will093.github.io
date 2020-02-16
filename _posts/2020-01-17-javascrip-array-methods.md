@@ -17,6 +17,8 @@ If after reading this article you would like to dive further into learning about
 
 We are going to build a very simple example application. It is a web page which fetches some famous quotes from [an API endpoint](https://quote-garden.herokuapp.com/quotes/all), processes this data to extract the quotes of Albert Einstein, and then renders these in the DOM.
 
+![App Preview](/images/map-filter-reduce/app-preview.png)
+
 The full example is available [on StackBlitz](https://stackblitz.com/edit/es6-filtermapreduce).
 
 For the purpose of this section, we will be looking at one particular function from this StackBlitz example, `getEinsteinQuotes`. The purpose of this function is to take an array of quote objects, which will be structured like this:
