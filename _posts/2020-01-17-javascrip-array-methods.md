@@ -2,7 +2,7 @@
 layout: post
 title: "JavaScript map, filter and reduce functions explained, with examples"
 image: "/images/map-filter-reduce/world-map.jpg"
-published: false
+published: true
 ---
 
 In this article I will explain, with examples, when and why you should use `map`, `filter` and `reduce` in your JavaScript code. I will show you how these methods can make your code more declarative and readable, and also act as a gateway for getting into that functional programming mindset.
