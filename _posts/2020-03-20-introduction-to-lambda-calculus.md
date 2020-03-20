@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "An introduction to Lambda Calculus for JavaScript developers"
-image: ""
+title: "The basics of Lambda Calculus, explained through JavaScript"
+image: "/images/introduction-to-lambda-calculus/lambda.jpg"
 published: false
 ---
 
@@ -26,13 +26,13 @@ The computational model most of us are familiar with is the Turing machine. Whil
 
 While lambda calculus can be used to compute pretty much anything, it is very minimalistic in its axioms/rules. However, it is surrounded by quite a lot terminology which can be daunting at first. We will see in this article that much of this terminology is in fact analogous to concepts that most developers will already be familiar with.
 
-## Lambda terms
+## Lambda calculus basics
 
 Lambda calculus is made up of just 3 basic components or lambda terms:
 
 1. **Variable** - a named token used in a function, which will be replaced by concrete arguments when the function is applied.
 
-2. **Abstraction** - a function, made up of a head and a body:
+2. **Abstraction** - a function, made up of a head and a body separated by a '$$ . $$'
 
     * The head is a lambda followed by a variable name. 
     * The body is an expression.
@@ -41,11 +41,15 @@ Lambda calculus is made up of just 3 basic components or lambda terms:
 
 An **expression** is a variable, an abstraction, or any combination of variables and abstractions.
 
-In addition, parentheses are used in lambda calculus to indicate the order of evaluation.
+Also, parentheses are used in lambda calculus to indicate the order of evaluation.
+
+This is all we get in lambda calculus. Numbers and basic arithmetic, eg. +, -, *, / are not a basic axiom of lambda calculus. However, these things can be defined in terms of lambda calculus via [Church Encoding](https://en.wikipedia.org/wiki/Church_encoding), and so for convenience we (and many others) choose to use numbers and basic arithmetic operators for convenience.
 
 ## A simple example - the identity function
 
-The following function is known as the identity function, it takes a value and returns that same value. In JavaScript we can easily write and invoke this function:
+The following function is known as the identity function, it takes a value and returns that same value. 
+
+In JavaScript we can easily define and execute this function:
 
 ```js
 const identity = x => x;
@@ -58,13 +62,13 @@ We can write the same function using lambda calculus as follows:
 $$ \lambda x . x $$
 
 In the above:
-  * $$ x $$ is a variable (and also an expression).
-  * $$ \lambda x . x $$ is an abstraction (and also an expression).
+  * $$ x $$ is a variable.
+  * $$ \lambda x . x $$ is an abstraction.
 
     * $$ \lambda x $$ is the head of the abstraction
-    * $$ x $$ is the body of the abstraction (and also an expression).
+    * $$ x $$ is the body of the abstraction.
 
-To perform an application on this function with lambda calculus, we use the following syntax:
+To perform an application, ie. apply the function to a concrete argument, we use the following syntax:
 
 $$ (\lambda x . x) \ 3 $$
 
@@ -72,69 +76,43 @@ $$ [x := 3] $$
 
 $$ 3 $$
 
-$$ [x := 3] $$ indicates that we are going to substituate all instances of $$ x $$ in the function with $$ 3 $$. The above process is known as **beta reduction**, which I will talk about now.
+$$ In the above, [x := 3] $$ indicates that we are going to substitute all instances of $$ x $$ in the function with $$ 3 $$. The above process is known as **beta reduction**, which I will talk about now.
 
 ## Beta reduction
 
 In JavaScript when we invoke a (pure) function with its arguments, the function gets evaluated and it returns the evaluated result:
 
 ```js
-const f = (x, y) => x * y;
+const f = (x, y) => x(y);
 
-f(2, 3); // 6
+f(z => z + 1, 3); // 4
 ```
 
-In lambda calculus, the process of applying conrete arguments to an abstraction, and reducing the resulting expression is known as **beta reduction**. Look at the following function:
+Here, `f` takes 2 arguments - a function `x` and a value `y`, and calls `x` with `y` as an argument.
+
+In lambda calculus, the process of applying concrete arguments to an abstraction, and reducing the resulting expression is known as **beta reduction**. 
+
+The equivalent to the above JavaScript function `f`, when written with lambda calculus, is:
 
 $$ \lambda x y . x y $$
 
 We can beta reduce this as follows:
 
-$$ (\lambda x y . x y) \ 2 \ 3 $$
+$$ (\lambda x y . x y) \ (\lambda z . z + 1) \ 3 $$
 
-$$ [x := 2] $$
+$$ [x := \lambda z . z + 1] $$
 
-$$ (\lambda y . 2 y) \ 3 $$
+$$ (\lambda y . (\lambda z . z + 1) \ y) \ 3 $$
 
-$$ [y := 3] $$
+$$ [z := y] $$
 
-$$ 6 $$
-
-**Beta normal form** is the most simplified form of an expression, ie. when it cannot be beta reduced the terms in an expression any further. In the above example $$ 6 $$ is the beta normal form of the application.
-
-## Bound and free variables
-
-// TODO: what are these? Combinators.
-
-The functions which we have looked at so far, have all been made up of bound variables. Lets look at an example which has a free variable:
-
-```js
-const z = 5;
-// z, in the context of our function, is a free variable.
-const f = (x, y) => z + (x * y);
-
-f(2, 3); // 11 === z + 6
-```
-
-`z` is closed over by our function and is used to calculate the result of any call to `f`. If we express this same function in lambda calculus, we get:
-
-$$ \lambda x y . z + x y $$
-
-And now applying arguments to this function and beta reducing it:
-
-$$ (\lambda x y . z + (x y)) \ 2 \ 3 $$
-
-$$ [x := 2] $$
-
-$$ (\lambda y . z + (2 y)) \ 3 $$
+$$ (\lambda y . y + 1) \ 3 $$
 
 $$ [y := 3] $$
 
-$$ z + 6 $$
+$$ 4 $$
 
-The difference being that in our JavaScript function, we assigned a value to `z`, whereas in the lambda calculus, we just evaluated the function as far as we could without knowing $$ z $$. 
-
-Even though it is not a numerical result, $$ z + 6 $$ is the beta normal form of this application.
+**Beta normal form** is the most simplified form of an expression, ie. when it cannot be beta reduced the terms in an expression any further. In the above example $$ 4 $$ is the beta normal form of the application.
 
 ## Alpha Equivalence
 
@@ -148,7 +126,48 @@ const myFunc2 = (y, x) => y * y;
 
 Similarly, in lambda calculus renaming variables within a function also has no effect. We say that abstractions which differ only in their variable names are **alpha equivalent**.
 
-$$ \lambda x y . xx $$ and $$ \lambda y x . yy $$ are alpha equivalent.
+The following is an example of 2 abstractions which are alpha equivalent:
+
+$$ \lambda x y . xx $$ 
+
+$$ \lambda y x . yy $$ 
+
+## Bound and free variables
+
+In JavaScript, the return value of a function can be calculated us both its parameters, and variables which the function closes over:
+
+```js
+const z = 5;
+// z, in the context of our function, is a free variable.
+const f = (x, y) => z + (x * y);
+
+f(2, 3); // 11 === z + 6
+```
+
+Similarly, lambda calculus abstractions can make use of both variables which are defined in the head of the abstraction, and other, 'unknown' variables which are not. In lambda calculus:
+
+* **Bound variables** are variables in an abstraction which appear in the head of an abstraction.
+* **Free variables** are variables in an abstraction which do not appear in the head, their value is taken to be unknown within the context of the abstraction.
+
+If we express the JavaScript function defined above in lambda calculus, we get:s
+
+$$ \lambda x y . z + x * y $$
+
+And now applying arguments to this function and beta reducing it:
+
+$$ (\lambda x y . z + (x y)) \ 2 \ 3 $$
+
+$$ [x := 2] $$
+
+$$ (\lambda y . z + (2 y)) \ 3 $$
+
+$$ [y := 3] $$
+
+$$ z + 6 $$
+
+The notable difference here is that in our JavaScript function, we assigned a value to `z`, whereas in the lambda calculus, we just evaluated the function as far as we could without knowing $$ z $$. 
+
+Even though it is not a numerical result, $$ z + 6 $$ is the beta normal form of this application.
 
 ## Unary functions and currying
 
@@ -156,15 +175,15 @@ Up until now we have been making a simplification, and viewing lambda functions 
 
 This is not actually quite correct. Every lambda function takes a single argument and returns a single result, and this type of function is know as a **unary function** (a function which takes 2 args is a binary function, a function which takes 3 args is known as a ternary function, etc...). 
 
-$$ \lambda x y z . xyz $$
+$$ \lambda x y z . x * y * z $$
 
 Is actually shorthand for
 
-$$ \lambda x . (\lambda y .  (\lambda z . xyz)) $$
+$$ \lambda x . (\lambda y .  (\lambda z . x * y * z)) $$
 
 This is function with a single parameter $$ x $$, which when invoked returns another function with a single parameter $$ y $$, which when invoked returns another function with a single parameter $$ z $$, which when invoked returns the value of $ xyz $ 
 
-In javaScript, this functions looks like:
+In javaScript, this function looks like:
 
 ```js
 const f = x => y => z => x * y * z;
@@ -183,7 +202,6 @@ multiplyBySix(4); // 24
 ```
 
 The process of breaking down a function into a series of unary functions is known as currying. All functions in lambda calculus are curried unary functions, despite that fact that we often use the aforementioned shorthand which makes them appear as if they take multiple arguments.
-
 
 # Divergence
 
@@ -204,29 +222,29 @@ f(f(f(f(f(f(...)))))); // and so on, until we reach the maximum call stack size.
 
 In lambda calculus, we say that a lambda function which cannot be reduced to beta normal form **diverges**. Here is the equivalent of the above expressed with lambda calculus:
 
-$$ (\lambda x . xx) (\lambda x . x x) $$
+$$ (\lambda x . x x) (\lambda x . x x) $$
 
 If we try and beta reduce this we get stuck in an infinite loop.
 
 $$ [x := \lambda x . x x] $$
 
-$$ (\lambda x . xx) (\lambda x . x x) $$
+$$ (\lambda x . x x) (\lambda x . x x) $$
 
 # Associativity and precendence
 
-In my mind this is the hardest part of lambda calculus, it is basically, deciding where to place brackets and hence give an order to the evaluation of a lambda function.
+This is the part of lambda calculus that I most struggled to get my head around. It is basically, deciding where to place parenthesese and hence give an order to the evaluation of an abstraction.
 
 There are 3 rules to remember:
 
 * **Application has higher precendence than abstraction.**
 
-  We group applications before we group abstractions.
+  ie. We group applications before we group abstractions.
 
   $$ \lambda xy . x y $$ 
 
   $$ \lambda xy . (x y) $$
 
-  In the above, the application of $$ x $$ to $$ y $$ is grouped. This is in contrast to if we tried to group abstractions first, which would be **the incorrect way**:
+  In the above, the application of $$ x $$ to $$ y $$ is grouped. This is in contrast to the result we might get if we tried to group abstractions first, which would be **the incorrect way**:
 
   $$ (\lambda xy . x) y $$
 
@@ -242,16 +260,10 @@ There are 3 rules to remember:
 
   $$ \lambda x.(x ( \lambda y.(y ( \lambda z.z)))) $$
 
-# Combinators
-
-TODO: remove?
-
-Combinators are expressions which have no free variables - they simply combine the arguments that they are given.
-
-$$ \lambda y z . y z $$ is a combinator as all variables in the body of the abstraction are bound to a variable in the head
-
-$$ \lambda y . z $$ is not a combinator, as $$ z $$ is a free variable not bound to anything in the head of the abstraction.
-
 ## Conclusion
 
-TODO: next article combinators.
+We have covered the basics of lambda calculus in this article. If you found this interesting
+
+## Useful resources
+
+The following resources were useful in the creation of this article:
