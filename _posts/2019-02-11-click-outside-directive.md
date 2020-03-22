@@ -44,3 +44,14 @@ The directive can then be used in a template as follows:
 ```
 
 Here is a [working StackBlitz demo of this directive](https://stackblitz.com/edit/angular-j7jqq2).
+
+# Helpful resources
+
+I highly recommend the following Udemy course if you are interested in improving your knowledge of Angular (affiliate link):
+
+<figure>
+  <a href="https://click.linksynergy.com/link?id=5FPU6FRy5w4&offerid=507388.756150&type=2&murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-complete-guide-to-angular-2%2F">
+      <img src="https://i.udemycdn.com/course/480x270/756150_c033_2.jpg"/>
+      <figcaption>Angular - The Complete Guide (2020 Edition)</figcaption>
+  </a>
+</figure>

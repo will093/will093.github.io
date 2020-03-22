@@ -13,3 +13,17 @@ img {
 .gmnoprint img {
   max-width: none;
 }
+
+figure {
+
+  figcaption {
+    text-align: center;
+  }
+
+  img {
+    margin: auto;
+    margin-bottom: 12px;
+  }
+
+  margin: 30px auto 45px;
+}

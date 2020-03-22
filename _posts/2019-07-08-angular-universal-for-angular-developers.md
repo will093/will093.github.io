@@ -12,6 +12,10 @@ This article assumes some experience working with Angular - it is aimed at Angul
 
 In the article, I will discuss why you might use Angular Universal and what the alternatives are, how Universal works at a high level, and how to get started. I will then do a deep dive into the code that makes up an Angular Universal application. Finally, I will talk about transferring data from a server rendered Angular application to a client rendered application via the Angular `TransferState` module.
 
+If after reading this article you would like to learn more about Angular Universal, the following Udemy course has a dedicated section on it, as well as covering many other important Angular concepts (affiliate link):
+
+[Angular - The Complete Guide (2020 Edition)](https://click.linksynergy.com/link?id=5FPU6FRy5w4&offerid=507388.756150&type=2&murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-complete-guide-to-angular-2%2F)
+
 # Why use Angular Universal?
 
 There are [3 main reasons](https://angular.io/guide/universal#why-use-server-side-rendering) to use Angular Universal:
@@ -495,7 +499,16 @@ If you found this article useful, I recommend also reading my [Angular Universal
 
 # Helpful Resources
 
-The following were really helpful for writing this article, and I very much recommend them as further reading:
+I highly recommend the following Udemy course which has an excellent section on Angular Universal, as well as covering many other Angular concepts (affiliate link):
+
+<figure>
+  <a href="https://click.linksynergy.com/link?id=5FPU6FRy5w4&offerid=507388.756150&type=2&murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-complete-guide-to-angular-2%2F">
+      <img src="https://i.udemycdn.com/course/480x270/756150_c033_2.jpg"/>
+      <figcaption>Angular - The Complete Guide (2020 Edition)</figcaption>
+  </a>
+</figure>
+
+In addition, the following were really helpful for writing this article, and I very much recommend them as further reading:
 
 * <https://blog.angular-university.io/angular-universal/>
 * <https://www.twilio.com/blog/faster-javascript-web-apps-angular-universal-transferstate-api-watchdog>

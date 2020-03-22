@@ -15,6 +15,10 @@ The code for the completed client side routing demo application can be found in 
 
 Also, as a disclaimer, let me state once again that more than anything else this article is just intended to help you understand how client side routing works - **for production code you are usually best off just using the router package or module which comes with your framework of choice**. 
 
+If after reading this article you are interested in building more things with Vanilla JS, I highly recommend this Udemy course (affiliate link):
+
+[20 Web Projects With Vanilla JavaScript](https://click.linksynergy.com/link?id=5FPU6FRy5w4&offerid=507388.2782800&type=2&murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fweb-projects-with-vanilla-javascript%2F)
+
 # What is client side routing?
 
 Client side routing is a type of routing where as the user navigates around the application or website no full page reloads take place, even when the page's URL changes. Instead, JavaScript is used to update the URL and fetch and display new content.
@@ -398,7 +402,18 @@ Finally, I would like to add that I found that looking at the [code for Hyperapp
 
 # Helpful Resources
 
-The following were really helpful for writing this article, and I very much recommend them as further reading:
+If you are interested in building more things with Vanilla JS, I highly recommend the following Udemy course (affiliate link):
+
+<figure>
+  <a href="https://click.linksynergy.com/link?id=5FPU6FRy5w4&offerid=507388.2782800&type=2&murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fweb-projects-with-vanilla-javascript%2F">
+      <img src="https://i.udemycdn.com/course/480x270/756150_c033_2.jpg"/>
+      <figcaption>20 Web Projects With Vanilla JavaScript</figcaption>
+  </a>
+</figure>
+
+I would also recommend this free [JavaScript 30](https://javascript30.com/) course by Wes Bos.
+
+In addition, the following were really helpful for writing this article, and I very much recommend them as further reading:
 
 * <https://github.com/jorgebucaran/hyperapp-router>
 * <https://medium.com/swlh/lets-code-a-client-side-router-for-your-no-framework-spa-19da93105e10>

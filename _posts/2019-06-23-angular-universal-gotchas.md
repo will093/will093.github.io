@@ -12,6 +12,10 @@ While for the most part your Angular application should run on the server exactl
 
 In this article I will address these gotchas, and discuss how you can work around them.
 
+If after reading this article you would like to learn more about Angular Universal, the following Udemy course has a dedicated section on it, as well as covering many other important Angular concepts (affiliate link):
+
+[Angular - The Complete Guide (2020 Edition)](https://click.linksynergy.com/link?id=5FPU6FRy5w4&offerid=507388.756150&type=2&murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-complete-guide-to-angular-2%2F)
+
 ## 1) Avoid referencing `window`, `document` and other DOM specific globals
 
 These globals include `window`, `document`, `localStorage`, `indexedDB`, `setTimeout` and `setInterval`.
@@ -175,6 +179,17 @@ We have been through what I have found over the last year or so of working with 
 Some resources that helped me to write this article, and that you may also find helpful, are given below.
 
 # Helpful Resources
+
+I highly recommend the following Udemy course which has an excellent section on Angular Universal, as well as covering many other Angular concepts (affiliate link):
+
+<figure>
+  <a href="https://click.linksynergy.com/link?id=5FPU6FRy5w4&offerid=507388.756150&type=2&murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-complete-guide-to-angular-2%2F">
+      <img src="https://i.udemycdn.com/course/480x270/756150_c033_2.jpg"/>
+      <figcaption>Angular - The Complete Guide (2020 Edition)</figcaption>
+  </a>
+</figure>
+
+In addition, the following were really helpful for writing this article, and I very much recommend them as further reading:
 
 * <https://github.com/angular/universal/blob/master/docs/gotchas.md>
 * <https://github.com/angular/universal-starter>
