@@ -5,7 +5,7 @@ image: "/images/introduction-to-lambda-calculus/lambda.jpg"
 published: false
 ---
 
-I have recently become very interested in functional programming - using pure functional languages such as Haskell, as well as functional programming in JavaScript. One of the main areas of study that is often cited as significant for functional programmers is lambda calculus.
+I have recently become very interested in functional programming - using pure functional languages such as Haskell, as well as functional programming in JavaScript. One of the main areas of study that is often cited as significant for functional programmers is **lambda calculus**.
 
 In this article I want to look at what lambda calculus is, why you might want to learn about it, and explain the key concepts and the terminology of lambda calculus using both lambda syntax and 'equivalent' JavaScript code snippets.
 
@@ -27,7 +27,7 @@ There are a few reasons to learn lambda calculus, the main ones I can think of a
 
 3. **Many concepts from lambda calculus are applicable to general purpose languages such as JavaScript.**
 
-    Concepts such as pure functions, unary functions and currying are often used in functional JavaScript.
+    Concepts such as pure functions, unary functions and currying are used in many general purpose programming languages, and are often used in functional JavaScript.
 
 4. **It is interesting**
 
@@ -39,7 +39,7 @@ Lambda calculus was invented by the mathematician [Alonzo Church](https://en.wik
 
 The computational model most of us are familiar with is the Turing machine. While lambda calculus is rather different to the Turing machine in its approach to computation, the two are formally equivalent - ie. any problem that can by solved using a Turing machine can be solved using lambda calculus, and vice versa.
 
-That is to say, lambda calculus can be used to solve any problem that can be computed using a Turing machine (so anything that anyone has ever programmed)!
+That is to say, lambda calculus can be used to solve any problem that can be computed using a Turing machine (so anything that anyone has ever programmed with a computer)!
 ## Lambda calculus basics
 
 Lambda calculus is very minimalistic in its rules/axioms. It is made up of just 3 basic components, or **lambda terms**:
@@ -57,9 +57,11 @@ An **expression** is a variable, an abstraction, an application, or any combinat
 
 In addition, parentheses are used in lambda calculus to indicate the order of evaluation.
 
-This is all we get in lambda calculus. It is quite amazing that using these 3 lambda terms we calculate pretty much anything. 
+This is all we get in lambda calculus! It is quite amazing that using these 3 lambda terms we calculate pretty much anything!
 
-It is worth noting the absence of any of the constructs of basic arithmetic, such as numbers, addition, subtraction, multiplication, division etc - these are not within the basic axioms of lambda calculus. However, these things can be defined in terms of lambda calculus via [Church Encoding](https://en.wikipedia.org/wiki/Church_encoding), and rather than do this every time we want to use any of these constructs, we can choose to use numbers and basic arithmetic operators for convenience.
+It is worth noting the absence of any of the constructs of basic arithmetic, such as numbers, addition, subtraction, multiplication, division etc - these are not within the basic axioms of lambda calculus. 
+
+Numbers and arithmetic operations can be defined in terms of lambda calculus via [Church Encoding](https://en.wikipedia.org/wiki/Church_encoding) (which is outside the scope of this article). Rather than working from first principles every time we need them, we can choose to use numbers and basic arithmetic operators for convenience.
 
 ## A simple example - the identity function
 
@@ -69,7 +71,6 @@ In JavaScript we can easily define and execute this function:
 
 ```js
 const identity = x => x;
-
 identity(3) // 3
 ```
 
@@ -92,7 +93,7 @@ $$ [x := 3] $$
 
 $$ 3 $$
 
-In the above, the $$ [x := 3] $$ syntax indicates that we are going to substitute all instances of $$ x $$ in the function with $$ 3 $$. The above process is known as **beta reduction**, which I will talk more about now.
+In the above, the $$ [x := 3] $$ syntax indicates that we are going to substitute all instances of $$ x $$ in the function with $$ 3 $$. The above process is known as beta reduction, which I will talk more about now.
 
 ## Beta reduction
 
@@ -301,7 +302,7 @@ There are 3 rules to remember:
   
   $$ \lambda wxyz . (((w x) y) z) $$
 
-* **Abstraction is right associative meaning than we grouped terms to the right.**
+* **Abstraction is right associative meaning than we group terms to the right.**
 
   $$ \lambda x.x \lambda y.y \lambda z.z $$
 
@@ -309,7 +310,7 @@ There are 3 rules to remember:
 
 ## Conclusion
 
-We have talked about what lambda calculus is, why you might want to learn it, and discussed the basic concepts of lambda calculus - explained using concepts which should be familiar to JavaScript developers. 
+We have talked about what lambda calculus is, why you might want to learn it, and discussed the basic concepts of lambda calculus - explained using ideas which should be familiar to JavaScript developers. 
 
 If you found this article interesting please check back here soon for my upcoming article about Church Encoding, where we will see how we can implement numbers and basic arithmetic using only lambda calculus, again explained using JavaScript.
 
