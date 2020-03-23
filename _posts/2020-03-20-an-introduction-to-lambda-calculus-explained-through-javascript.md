@@ -2,7 +2,7 @@
 layout: post
 title: "An introduction to Lambda Calculus, explained through JavaScript"
 image: "/images/introduction-to-lambda-calculus/lambda.jpg"
-published: false
+published: true
 ---
 
 I have recently become very interested in functional programming - using pure functional languages such as Haskell, as well as functional programming in JavaScript. One of the main areas of study that is often cited as significant for functional programmers is **lambda calculus**.
