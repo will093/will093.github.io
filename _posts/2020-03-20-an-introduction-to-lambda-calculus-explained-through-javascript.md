@@ -253,38 +253,38 @@ $$ [x := \lambda x . x x] $$
 
 $$ (\lambda x . x x) (\lambda x . x x) $$
 
-# Associativity and precendence
+# Associativity and precedence
 
-In JavaScript, we have the concepts of [associativity and precendence](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence) for operators and function calls. 
+In JavaScript, we have the concepts of [associativity and precedence](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence) for operators and function calls. 
 
-Associativity and precendence are how the JavaScript interpretter determines the order of evaluation of expressions, or 'where it puts its parentheses'. Consider the following:
+Associativity and precedence are how the JavaScript interpretter determines the order of evaluation of expressions, or 'where it puts its parentheses'. Consider the following:
 
 ```js
 const f1 = x => y => z => x / y / z / 2 + 7;
 f1(1)(2)(3) // 7.083333333333333
 ```
 
-Some division and addition has gone on, but it is really not clear in what order, because of the lack of parentheses. Using JavaScript`s rules for precendence and associativity:
+Some division and addition has gone on, but it is really not clear in what order, because of the lack of parentheses. Using JavaScript`s rules for precedence and associativity:
 
-* Division (`/`) has higher precendence than addition (`+`), so we divide first.
+* Division (`/`) has higher precedence than addition (`+`), so we divide first.
 * Division is left associative, meaning that when there are consecutive division operators, we group operations to the left.
 
 Knowing this, we figure out where 
 
 ```js
 const f1 = x => y => z => x / y / z / 2 + 7;
-const f2 = x => y => z => (x / y / z / 2) + 7; // Division has higher precendence than addition.
+const f2 = x => y => z => (x / y / z / 2) + 7; // Division has higher precedence than addition.
 const f3 = x => y => z => (((x / y) / z) / 2) + 7; // Division is left associative
 
 f1(1)(2)(3) // 7.083333333333333
 f2(1)(2)(3) // 7.083333333333333
 f3(1)(2)(3) // 7.083333333333333
 ```
-Now lets take a look and precendence and associativity in lambda calculus. This is the part of lambda calculus that I most struggled to get my head around. 
+Now lets take a look and precedence and associativity in lambda calculus. This is the part of lambda calculus that I most struggled to get my head around. 
 
 There are 3 rules to remember:
 
-* **Application has higher precendence than abstraction.**
+* **Application has higher precedence than abstraction.**
 
   ie. We group applications before we group abstractions.
 
