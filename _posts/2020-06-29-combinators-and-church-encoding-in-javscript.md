@@ -2,7 +2,7 @@
 layout: post
 title: "Lambda calculus explained through JavaScript: combinators and Church encoding"
 image: "/images/church-encoding/church.jpg"
-published: false
+published: true
 ---
 
 In this article I will talk about Church encoding, the mechanism by which we can encode operators and data using lambda calculus. In particular I will use JavaScript to demonstrate how we can use lambda calculus to implement boolean logic and basic arithmetic.
