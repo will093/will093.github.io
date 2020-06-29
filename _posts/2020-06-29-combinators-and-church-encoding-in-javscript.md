@@ -5,13 +5,11 @@ image: "/images/church-encoding/church.jpg"
 published: false
 ---
 
-In this article I will talk about Church encoding, the mechanism by which we can represent operators and data using lambda calculus. In particular I will use JavaScript to demonstrate how we can use lambda calculus to implement boolean logic and basic arithmetic.
+In this article I will talk about Church encoding, the mechanism by which we can encode operators and data using lambda calculus. In particular I will use JavaScript to demonstrate how we can use lambda calculus to implement boolean logic and basic arithmetic.
 
-This is a follow up to my previous article, [An introduction to Lambda Calculus, explained through JavaScript](http://willtaylor.blog/an-introduction-to-lambda-calculus-explained-through-javascript/), which I recommend reading first if you are not familiar with lambda calculus.
+This is a follow up to my previous article, [An introduction to Lambda Calculus, explained through JavaScript](http://willtaylor.blog/an-introduction-to-lambda-calculus-explained-through-javascript/), which I recommend reading first if you are not familiar with lambda calculus. Much of what I write about in this article is inspired by the puzzle book To Mock a Mockingbird, by Raymond Smullyan, and also the 2 part YouTube series, [A Flock of Functions](https://www.youtube.com/watch?v=3VQ382QG-y4&t=2850s) by Gabrial Lebec.
 
-I have created a [StackBlitz demo](https://stackblitz.com/edit/church-encodings), which contains examples of all of the functions discussed and used in this article.
-
-Much of what I write about in this article is inspired by the puzzle book To Mock a Mockingbird, by Raymond Smullyan, and also the 2 part YouTube series, [A Flock of Functions](https://www.youtube.com/watch?v=3VQ382QG-y4&t=2850s) by Gabrial Lebec.
+This [StackBlitz demo](https://stackblitz.com/edit/church-encodings) contains examples of all of the functions discussed and used in this article.
 
 # What is Church encoding?
 
@@ -35,6 +33,7 @@ And in JavaScript:
 const combinator = (x, y) => x
 
 const z = 3;
+// z does not appear in the function parameters so this is not a combinator.
 const notACombinator = (x, y) => z;
 ```
 
@@ -115,7 +114,10 @@ We can use the Cardinal to flip the arguments of a function as follows:
 
 ```js
 const subtract = a => b => a - b;
-const flipSubtract = C(subtract);
+subtract(5, 3); // 2
+
+const flippedSubtract = C(subtract);
+flippedSubtract(5, 3); // -2
 ```
 
 ## The Mockingbird (M) combinator
@@ -276,7 +278,9 @@ In JavaScript:
 const B = f => g => a => f(g(a));
 ```
 
-Sounds slightly confusing described in this way, but this combinator, when called with just two of its arguments, actually just composes two unary functions (a unary function is a function which takes a single argument). If you are not familiar with function composition, this means chaining functions in such a way that the return value of one is passed to the next:
+Sounds slightly confusing described in this way, but this combinator, when called with just two of its arguments, actually just composes two unary functions (a unary function is a function which takes a single argument). 
+
+If you are not familiar with function composition, this means chaining functions in such a way that the return value of one is passed to the next:
 
 ```js
 const add3 = x => x + 3;
@@ -286,7 +290,9 @@ const doubleThenAdd3 = B(add3)(double);
 doubleThenAdd3(5); // 13
 ```
 
-Notice that in this case the composition goes from right to left - the argument is doubled and then 3 is added. You can visualise how the composed function works by defining the function like this, which is its less elegant equivalent:
+Notice that in this case the composition goes from right to left - the argument is doubled and then 3 is added. 
+
+You can visualise how the composed function works by defining the function like this, which is its less elegant equivalent:
 
 ```js
 const doubleThenAdd3 = x => add3(double(x));
@@ -473,7 +479,7 @@ const pow = TH;
 pow(three)(four).toJsNum() // 81
 ```
 
-The above is essentially saying, apply our function three (which itself applies a function 3 times) four times, passing the result of each application into the next. So it results in a function which applies a function 3 * 3 * 3 * 3 (ie. 81) times.
+The above is essentially saying, apply our function `three` (which itself applies a function 3 times) `four` times - passing the result of each application of `three` into the next. So it results in a function which applies a function 3 * 3 * 3 * 3 (ie. 81) times.
 
 ```js
 four(three).toJsNum() // 81
@@ -500,6 +506,8 @@ Function.prototype.toJsPair = function() {
 
 pair(one)(three).toJsPair(); // (1, 3)
 ```
+
+Next lets define another function, `phi`:
 
 ```js
 const phi = p => V(snd(p))(succ(snd(p)));
