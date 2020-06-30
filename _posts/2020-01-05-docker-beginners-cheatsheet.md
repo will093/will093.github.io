@@ -122,7 +122,7 @@ These are commands for creating and working with Docker containers.
 
     Execute a command inside the specific container. `-it`, is actually 2 flags:
 
-    * `-i` wires up anything you type to the STDIN of the the container.
+    * `-i` wires up anything you type to the STDIN of the container.
     * `-t` formats the output of the STDOUT from the container, in order to display it in a readable format in your terminal.
 
     Running this with `sh` as the commandmis often very useful. It will start a command line shell inside of the container, allowing you to then execute whatever commands you wish inside the container.
