@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Building a ClickOutside directive with Angular"
-image: "/images/click-outside/click-outside.jpg"
+image: "/images/click-outside/buttons.jpg"
 published: true
 ---
 

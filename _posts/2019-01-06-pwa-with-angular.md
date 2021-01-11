@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "PWAs with Angular - Part 2: Building a Progressive Web App"
-image: "/images/angular7-pwa/todo-app.jpg"
+image: "/images/angular7-pwa/apps.jpg"
 published: true
 ---
 

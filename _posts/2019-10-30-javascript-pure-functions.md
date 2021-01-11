@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "An introduction to pure functions in JavaScript"
-image: "/images/pure-functions-in-js/cupcake-machine.jpg"
+image: "/images/pure-functions-in-js/fx.jpg"
 published: true
 ---
 
