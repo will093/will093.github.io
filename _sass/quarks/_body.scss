@@ -1,6 +1,11 @@
+html, body {
+  height: 100%;
+}
+
 body {
+  display: flex;
+  flex-direction: column;
 	background: $white;
   font: 18px/1.4 $helvetica;
   color: $darkGray;
-  padding-bottom: 95px;
 }
