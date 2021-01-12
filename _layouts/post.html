@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<article class="post container">  
+<article class="post">  
   <meta name="og:title" content="{{ page.title }}"></meta>
   <meta name="og:type" content="article"></meta>
   <meta name="og:image" content="{{ site.url }}{{ page.image }}"></meta>
@@ -10,16 +10,20 @@ layout: default
   <meta name="twitter:site" content="@William62989371" />
   <meta name="twitter:title" content="{{ page.title }}" />
   <meta name="twitter:image" content="{{ site.url }}{{ page.image }}" />
-  <h1>{{ page.title }}</h1>
-  <img class="header-image" src="{{ page.image }}"/>
-
-  <div class="entry">
-    {{ content }}
+  <div class="post__body container">
+    <h1>{{ page.title }}</h1>
+    <img class="header-image" src="{{ page.image }}"/>
+  
+    <div class="entry">
+      {{ content }}
+    </div>
+  
+    <div class="date">
+      Written on {{ page.date | date: "%B %e, %Y" }}
+    </div>
   </div>
-
-  <div class="date">
-    Written on {{ page.date | date: "%B %e, %Y" }}
+  {% include profile-banner.html %}
+  <div class="container">
+    {% include disqus.html %}
   </div>
-
-  {% include disqus.html %}
 </article>
