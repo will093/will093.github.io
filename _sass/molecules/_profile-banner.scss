@@ -1,5 +1,5 @@
 .profile-banner {
-  height: 18rem;
+  height: 20rem;
   background-color: $secondary;
   display: flex;
   align-items: center;
@@ -23,12 +23,16 @@
 .profile-banner__blurb {
   display: flex;
   align-items: center;
-  padding: 1rem 1.5rem;
+  padding: 1rem 2.5rem;
   font-size: 1rem;
 }
 
 .profile-banner__contact {
-  min-width: 10rem;
+  min-width: 11rem;
+
+  .btn {
+    margin-top: 1.5rem;
+  }
 }
 
 .profile-banner__avatar {
@@ -40,5 +44,15 @@
 
   img {
     margin: 0;
+  }
+}
+
+.profile-banner__social {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0.5rem;
+
+  i {
+    display: block;
   }
 }

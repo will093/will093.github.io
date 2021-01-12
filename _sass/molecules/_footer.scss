@@ -1,4 +1,5 @@
 .wrapper-footer {
+  min-height: 5rem;
   margin-top: 50px;
   border-top: 1px solid darken($gray, 15%);
   border-bottom: 1px solid darken($gray, 15%);
@@ -16,14 +17,7 @@ footer {
 }
 
 .copyright {
-  padding-top: 14px;
-}
-
-.social-links {
-  padding-top: 4px;
-  a {
-    padding-left: 10px;
-  }
+  padding-top: 1.2rem;
 }
 
 @include mobile {
