@@ -1,0 +1,62 @@
+.profile-banner {
+  height: 20rem;
+  background-color: $secondary;
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  @include mobile {
+    height: auto;
+  }
+}
+
+.profile-banner__content {
+  display: flex;
+  align-items: center;
+
+  @include mobile {
+    flex-direction: column;
+    margin: 3rem 0;
+  }
+}
+
+.profile-banner__blurb {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+
+  @include mobile {
+    text-align: center;
+  }
+}
+
+.profile-banner__contact {
+  min-width: 11rem;
+
+  .btn {
+    margin-top: 1.5rem;
+  }
+}
+
+.profile-banner__avatar {
+  height: 8rem;
+  width: 8rem;
+  min-width: 8rem;
+  border-radius: 50%;
+  overflow: hidden;
+
+  img {
+    margin: 0;
+  }
+}
+
+.profile-banner__social {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0.5rem;
+
+  i {
+    display: block;
+  }
+}

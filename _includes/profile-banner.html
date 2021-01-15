@@ -1,0 +1,21 @@
+<div class="profile-banner">
+  <div class="container">
+      <div class="profile-banner__content">
+      <div class="profile-banner__avatar">
+          <a href="/about" class="site-avatar"><img src="{{ site.avatar }}" /></a>
+      </div>
+      <div class="profile-banner__blurb">
+          <div>
+          <p>{{ site.profile-bio }}</p>
+          <p>Interested in working with me or fancy a chat? <a href="/about#contact">Get In Touch</a></p>
+          </div>
+      </div>
+      <div class="profile-banner__contact">
+          <a class="btn btn-primary" href="/about#contact">Get In Touch</a>
+          <span class="profile-banner__social">
+            {% include svg-icons.html %}
+          </span>
+      </div>
+      </div>
+  </div>
+</div>

@@ -1,6 +1,12 @@
+html, body {
+  height: 100%;
+  overflow: auto;
+}
+
 body {
+  display: flex;
+  flex-direction: column;
 	background: $white;
   font: 18px/1.4 $helvetica;
   color: $darkGray;
-  padding-bottom: 95px;
 }

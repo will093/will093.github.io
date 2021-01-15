@@ -19,23 +19,24 @@
   <body>
     <div class="wrapper-masthead">
       <div class="container">
-        <header class="masthead clearfix">
-          <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
-
+        <header class="masthead">
           <div class="site-info">
+            <img src="/images/wt-logo.png"></img>
             <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
             <!-- <p class="site-description">{{ site.description }}</p> -->
           </div>
-
-          <nav>
-            <a href="{{ site.baseurl }}/">Blog</a>
-            <a href="{{ site.baseurl }}/about">About</a>
-          </nav>
+          <div class="site-nav">
+            <nav>
+              <a href="{{ site.baseurl }}/">Home</a>
+              <a href="{{ site.baseurl }}/about">About</a>
+              <a href="{{ site.baseurl }}/about#contact">Contact</a>
+            </nav>
+          </div>
         </header>
       </div>
     </div>
 
-    <div id="main" role="main" class="container">
+    <div class="main" id="main" role="main">
       {{ content }}
     </div>
 
@@ -44,9 +45,6 @@
         <footer class="footer">
           <span class="copyright">
             © Will Taylor {{ site.time | date: '%Y' }}
-          </span>
-          <span class="social-links">
-              {% include svg-icons.html %}
           </span>
         </footer>
       </div>

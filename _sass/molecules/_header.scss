@@ -1,6 +1,7 @@
 .wrapper-masthead {
-  margin-bottom: 30px;
   background: $primary;
+  box-shadow: 0 2px 4px rgba($primary,.2), 0 4px 12px rgba($primary,.2);
+  position: relative;
   
   * {
     color: $white;
@@ -11,6 +12,12 @@
   }
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 .masthead {
   padding: 15px 0;
 
@@ -19,65 +26,58 @@
   }
 }
 
-.site-avatar {
-  float: left;
-  width: 80px;
-  height: 80px;
-  margin-right: 25px;
-
+.site-info {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding-right: 1rem;
   @include mobile {
-    float: none;
-    display: block;
-    margin: 0 auto;
+    width: 100%;
   }
 
   img {
-    margin: 0;
-    border: 2px solid darken($primary, 10%);
-    border-radius: 50%;
-  }
-}
-
-.site-info {
-  float: left;
-
-  @include mobile {
-    float: none;
-    display: block;
-    margin: 0 auto;
+    margin:0;
+    margin-right:0.5rem;
+    height: 5rem;
+    box-shadow: none;
   }
 }
 
 .site-name {
-  margin-top: 16px;
   cursor: pointer;
   font-family: $helveticaNeue;
   font-weight: 300;
-  font-size: 28px;
+  font-size: 1.2rem;
   letter-spacing: 1px;
 }
 
+.site-nav {
+  display: flex;
+  justify-content: center;
+  
+  @include mobile {
+    width: 100%;
+  }
+}
+
 nav {
-  float: right;
-  margin-top: 29px; // @TODO: Vertically middle align
   font-family: $helveticaNeue;
   font-size: 18px;
+  display: flex;
+  justify-content: space-between;
 
   @include mobile {
-    float: none;
-    margin-top: 9px;
-    display: block;
-    font-size: 16px;
+    min-height: 3rem;
+    font-size: 1rem;
   }
 
   a {
-    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
     text-align: right;
     font-weight: 300;
     letter-spacing: 1px;
-
-    @include mobile {
-      margin: 0 10px;
-    }
   }
 }

@@ -5,16 +5,6 @@ permalink: /about/
 published: true
 ---
 
-My name is Will Taylor, I live in the vibrant city of Bristol, UK.
+I am a freelance web developer based in Bristol UK. I have more than 6 years experience in building full stack web applications using JavaScript and TypeScript.
 
-I am a freelance full stack developer specialising in Angular and JavaScript, and I have been practicing web development professionally for 5 years. 
-
-When I am not programming I am most often found making music, growing fruit, vegetables and mushrooms, or bouldering.
-
-### My blog
-
-I started willtaylor.blog because I wanted a place to document some of the valuable lessons that I have learned from my work, and because I find it rewarding to explain technical concepts through writing.
-
-### Contact me
-
-If you would like to get in contact with me, please email me at [willtaylor.developer@gmail.com](mailto:email@domain.com)
+I work with a large variety of technologies including Angular, Ionic, RxJS, Vue, Svelte, Node.js, Express.js. For a full overview of my professional history and projects that I have worked on, take a look at [my LinkedIn](https://www.linkedin.com/in/will-s-taylor/).
