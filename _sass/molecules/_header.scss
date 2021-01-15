@@ -27,19 +27,28 @@ header {
 }
 
 .site-info {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding-right: 1rem;
   @include mobile {
-    display: block;
     width: 100%;
-    margin: 0 auto;
+  }
+
+  img {
+    margin:0;
+    margin-right:0.5rem;
+    height: 5rem;
+    box-shadow: none;
   }
 }
 
 .site-name {
-  margin-top: 16px;
   cursor: pointer;
   font-family: $helveticaNeue;
   font-weight: 300;
-  font-size: 24px;
+  font-size: 1.2rem;
   letter-spacing: 1px;
 }
 
