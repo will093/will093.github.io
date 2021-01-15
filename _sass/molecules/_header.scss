@@ -1,5 +1,7 @@
 .wrapper-masthead {
   background: $primary;
+  box-shadow: 0 2px 4px rgba($primary,.2), 0 4px 12px rgba($primary,.2);
+  position: relative;
   
   * {
     color: $white;
@@ -52,19 +54,19 @@
   cursor: pointer;
   font-family: $helveticaNeue;
   font-weight: 300;
-  font-size: 28px;
+  font-size: 24px;
   letter-spacing: 1px;
 }
 
 nav {
   float: right;
-  margin-top: 29px; // @TODO: Vertically middle align
+  margin-top: 1.4rem;
   font-family: $helveticaNeue;
   font-size: 18px;
 
   @include mobile {
     float: none;
-    margin-top: 9px;
+    margin-top: 1rem 0;
     display: block;
     font-size: 16px;
   }

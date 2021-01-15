@@ -1,5 +1,5 @@
 .wrapper-footer {
-  min-height: 5rem;
+  min-height: 4rem;
   margin-top: 50px;
   border-top: 1px solid darken($gray, 15%);
   border-bottom: 1px solid darken($gray, 15%);
@@ -10,7 +10,7 @@
 }
 
 footer {
-  padding: 10px 0;
+  padding: 0.2rem 0;
   text-align: center;
   display: flex;
   justify-content: space-between;
@@ -18,17 +18,11 @@ footer {
 
 .copyright {
   padding-top: 1.2rem;
+  font-size: 0.9rem;
 }
 
 @include mobile {
   footer {
     justify-content: space-around;
-  }
-  .social-links a {
-    padding-left: 2px;
-  }
-  .copyright {
-    max-width: 60px;
-    font-size: 0.7rem;
   }
 }
