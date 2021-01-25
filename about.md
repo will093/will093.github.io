@@ -15,7 +15,9 @@ These are my favourite personal projects that I have built. For my professional 
 
 ### Easy Recorder app
 
-[Easy Recorder](https://easy-recorder.herokuapp.com) is small voice recorder app that I built using Angular and Ionic. It works using the browser Web Audio API and runs as a web app and PWA.
+[Easy Recorder](https://easy-recorder.herokuapp.com) is voice recorder app that I built using Angular and Ionic. It runs as a web app and PWA.
+
+You can check out the code [here](https://github.com/will093/easy-recorder).
 
 {:.project-gallery}
 [
