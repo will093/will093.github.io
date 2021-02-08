@@ -26,3 +26,15 @@ You can check out the code [here](https://github.com/will093/easy-recorder).
 [
   ![Easy Recorder App](/images/about/easy-recorder-list.jpg)
 ](https://easy-recorder.herokuapp.com/)
+
+### Svelte Minesweeper
+
+I built [this implementation](https://svelte-minesweeper.surge.sh/) of the game Minesweeper using Svelte and Tailwind CSS.
+
+You can check out the code [here](https://github.com/will093/svelte-minesweeper).
+
+{:.project-gallery}
+[
+  ![Svelte Minesweeper App](/images/about/svelte-minesweeper.png)
+](https://svelte-minesweeper.surge.sh/)
+[
