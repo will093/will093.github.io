@@ -1,9 +1,63 @@
 ---
 layout: post
-title: ""
+title: "Web performance: key takeaways from high performance browser networking"
 image: ""
 published: false
 ---
+
+In web development there are a lot of performance optimisations that are commonly used and discussed, but often without a deep understanding of why such optimisations are helpful. I always like to not just do something 'because', but to understand why I do it, so I took a recommendation to read [High Performance Browser Networking](https://hpbn.co/). 
+
+
+After reading this book I have a clearer understanding of how the way networks are implemented can affect the performance of applications and how we can get the most out of these networks, and work around their limitations. While the book was last updated in 2015 and there are probably some details missing, eg. modern mobile networks and 5G networks are not described in the book, most of the information seems up to date and relevant. These are my main takeaways from the book.
+
+# 1) Latency will always be a problem
+
+Bandwidth and latency are the 2 limiting factors of networks that we think about. While bandwidth can be a problem, as networking technology improves this is less and less the case. 
+
+However, latency is an intrinsic limitation in networks spread out over a distance, as data can travel no faster than the speed of light between 2 points. Because of this, a well thought out caching strategy and CDNs to ensure we minimise the distance between our resources and the end user is very important.
+
+# 2) Understanding the TCP protocol is helpful for building performant websites
+
+All HTTP requests from your website are sent over TCP, and some of the implementation details of TCP that affect how your website will perform.
+
+TODO: TCP handshake diagram
+
+* TCP handshake - before you can send HTTP requests to a server, the browser must open a TCP connection. The [way that this is implemented](https://hpbn.co/building-blocks-of-tcp/#three-way-handshake) takes 1.5 roundtrips, and means that we have 1 roundtrip of latency that we wouldn't have withouth the handshake.
+* TCP slow start - in order to not overwhelm the network and lose data packets, TCP connection will limit the throughput between client on server initially, and then double it every roundtrip between client and server. Meaning that the time it takes for the TCP connection to reach full speed is proportional to the physical distance between the client and server.
+* Packet loss and head of line blocking - TCP is not optimised for speed but for reliability (avoiding packet loss), if a data packet gets dropped between client and server, the TCP protocol has logic to retransmit the packet. But because TCP packets have an order to them, the receiver must buffer all subsequent packets until the dropped packet has been resent and received.
+
+All of these implementation details result in an amount of latency which is directly proportional to the time it takes for a roundtrip between client and server. A good caching strategy (on the client, or on a server close to the end user) and use of CDN to put our resources physically close to the end user is important.
+
+
+# 3) Browsers do a lot of networking optimisations for you
+
+Browsers cache responses automatically based on the `cache-control` headers, and are the only place where private data can be cached. It is really worth understanding the [ins and outs of cache headers](https://youtu.be/HiBDZgTNpXY), as they have some nuance to them and when used right can massively improve performance. Allowing data to be cached at multiple levels - your browser, proxy, and CDN/reverse proxy.
+
+Whenever you visit a new hostname (eg. example.com), your browser must first do a DNS lookup to find the IP address for that hostname's server. Once this lookup is done the result is cached in the browser (and at multiple other levels such as your OS, your proxy), so that in the near future visits to the websites will use this cached value.
+
+Modern browsers will also try and predict which hostnames you may need to connect to in the near future, and do a DNS lookup pre-emptively. Furthermore, browsers pre-emptively create TCP connections with hosts which you may need to connect. And in supported browsers you can actually give prompts to do specific [pre-resolves](https://caniuse.com/link-rel-dns-prefetch) and [pre-connects](https://caniuse.com/link-rel-preconnect) in your HTML.
+
+# 4) TLS adds performance overhead
+
+Any TCP connection made over https must then perform a TLS handshake before data can be sent over the connection. Without any optimisations, the handshake takes 2 round trips between server and client, although in practice with TLS false start and TLS session resumption, this is reduced to 1 round trip.
+
+As the round trip time is highly correlated with the distance between client and server, this is yet another reason to make sure that your servers are geographically close to your end users.
+
+# 5) Mobile networks rely on Radio resource controllers which adds latency
+
+The radio in mobile devices used for connecting to wifi and 4G/5G networks requires a lot of power, usually second only to the power consumption of the screen. This means that it is not feasible for the radio to be active at all times. 
+
+Because of this (and also for network efficiency) mobile networks rely on [radio resources controllers](https://hpbn.co/mobile-networks/#radio-resource-controller-rrc) (RRCs) to control when a connected device's radio should become active in order to send and recieve data. These RRCs operate at the cell tower level to synchronise data transfer or many connected devices. This means that when your device wants to send a request to a server, it has to 'wait for its turn', its window in which to send or recieve data. This adds a lot of (TODO: how much?) latency to mobile networks that it is difficult to do anything about.
+
+Also, when making requests for small amounts of data, the radio may stay active for longer than it takes to transfer the data, which is not power efficient. What this means is that when thinking about power consumption when sending data over mobile networks, few large requests are better than many small ones, and patterns such as frequent polling of a server can drain a device battery very quickly. 
+
+# Summary
+
+TODO: latency talk
+
+## Some optimisations are only necessary for HTTP/1.1 and not HTTP/2
+
+TODO: explained both protocols and the differences
 
 # Chapter 1 - latency and bandwidth
 
@@ -181,4 +235,79 @@ HTTP pipelining eliminates latency by moving the 'First in first out (FIFO)' que
 ## Head of line blocking
 
 The responses from the server cannot be interleaved (bytes from different response cannot be mixed). So if the first request in the queue is taking a long time to process but the others further back in the queue are ready to send, then they must still wait for the first request to finish being sent.
+
+HTTP - most browsers and many web servers now support HTTP 2 which doesn't have the head of line blocking issue.
   
+# Chapter 12 - HTTP 2
+
+1) HTTP 2 allows for interleaving request and response messages on the same TCP connection, solving the head of line problem.
+2) HTTP 2 uses binary framing, essentially encoding all data sent into efficient binary.
+
+This removes the need for workarounds like domain sharding, image sprites etc... we only need 1 HTTP/2 connection per origin.
+
+### Streams
+
+A bidirectional flow of data from server to client, which will carry one or more messages. Each stream has a unique ID and priority information, allowing the server and client to identify a stream from multiple streams on a single TCP connection.
+
+### Messages
+
+A HTTP request or response, consisting of 1 or more frames
+
+### Frame
+
+Part of a HTTP message (eg. headers). Frames are encoded to binary, and frames from multiple streams can be interleaved.
+can be interleaved with
+
+## Server push
+
+It is possible for a server to send multiple responses to a single client request, and this is known as server push. Eg. if a client requests a HTML file, the server can also respond with the associated JS, CSS files. Server push is not often used as it complicates caching strategies.
+
+# Chapter 13 - optimising application delivery
+
+This chapter is pretty much a summary of what we hae seen so far
+
+# Chapter 14 - primer on browser networking
+
+The browser manage TCP/UDP sockets under the hood. Browsers all limit the number of TCP sockets/connections to 6 - 1 socket is 1 TCP connection.
+
+# Chapter 15 - XML HTTP Request
+
+CORS must be configured to allow cross orign XHR requests.
+
+Streaming is innefficient and awkward, perhaps less so with streaming API. It appears that fetch + Streams API can do this though
+
+Long polling - send a HTTP get and leave it hanging until the server is ready to send a response (a pattern known as Comet)
+
+# Chapter 16 - Server Sent Events (SSE)
+
+Allows the browser to receive a stream of events that are pushed from a server.
+
+Not clear why you would choose this over web sockets.
+
+# Chapter 17 - Websocket
+
+Bidirectional communication between server and client. Closest API to a raw network socket available in the browser.
+
+Distinct from HTTP, Websocket is a custom protocol - no state management, compression, caching built in.
+
+There are now many libraries (sock.js, Socket.io) which provide websocket implementations and also provide a WebSocket server implementation, with fallbacks for clients who don't support WebSocket. The fallbacks are not always great though as they rely on mechanisms such as polling.
+
+WebSocket API abstracts buffering and reconstruction of messages.
+
+The server/client can check the websocket buffer, implement their own priority system, etc...
+
+Each message sent over websocket is split into 1 more more binary frames.
+
+Websocket messages cannot be multiplexed. And with HTTP 1.1, each WebSocket requires 1 TCP connection.
+
+# Chapter 17 - WebRTC
+
+Web RTC allows for direct communication between clients.
+
+For the initial connection btween clients we still need servers.
+
+1) Signalling server, which allows clients to send each other offers to connect to one another.
+2) STUN server, which a client can ping to acquire its own network setup info, eg. IP address, NAT configuration.
+3) TURN server, a fallback, in case either client has their network set up in such a way that direct connection to each other is not possible.
+
+For 1 to 1 video/audio calls this setup can be great, but consider the topology of the network when implementing connections between multiple clients. A centralised 'supernode' may be best.
