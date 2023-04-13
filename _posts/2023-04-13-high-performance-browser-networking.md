@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Web performance: key takeaways from high performance browser networking"
+title: "Web performance: key takeaways from 'High Performance Browser Networking'"
 image: "/images/high-performance-browser-networking/earth.jpg"
 published: true
 ---
