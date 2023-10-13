@@ -5,7 +5,7 @@ permalink: /about/
 published: true
 ---
 
-I am a freelance web developer based in Bristol UK. I have 6 years experience building full stack web applications. I work with a large variety of technologies including Angular, Ionic, RxJS, Vue, Svelte, TypeScript, Node.js and Express.js.
+I am a freelance web developer based in Bristol UK. I have 9 years of experience building full stack web applications. I work with a large variety of technologies including Svelte, TypeScript, Node.js, Angular, RxJS, Vue.
 
 When I am not programming I like to spend my time going to gigs, bouldering, and growing fruit and vegetables. 
 
