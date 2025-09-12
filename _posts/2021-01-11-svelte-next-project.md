@@ -2,7 +2,7 @@
 layout: post
 title: "Why you should consider building your next project with Svelte"
 image: "/images/consider-svelte/legos.jpg"
-published: true
+published: false
 ---
 
 For the last few months I have been working with Svelte. As a developer who has worked on a lot of Angular codebases as well as the odd React/Vue project, I was pleasantly surprised by how nice Svelte is. 

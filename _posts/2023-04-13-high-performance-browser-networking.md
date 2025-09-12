@@ -5,7 +5,7 @@ image: "/images/high-performance-browser-networking/earth.jpg"
 published: true
 ---
 
-In web development there are a lot of performance optimisations that are commonly used and discussed, but often without a deep understanding of why such optimisations are helpful. I like to not just do something 'because', but to understand the underlying ideas, so I took a recommendation to read [High Performance Browser Networking](https://hpbn.co/) by Ilya Grigorik. 
+In software engineering there are a lot of performance optimisations that are commonly used and discussed, but often without a deep understanding of why such optimisations are helpful. I like to not just do something 'because', but to understand the underlying ideas, so I took a recommendation to read [High Performance Browser Networking](https://hpbn.co/) by Ilya Grigorik. 
 
 
 After reading the book I have a clearer understanding of how the implementation details of a network can affect the performance of applications, as well as how we can get better performance when transferring data over a network. While the book was last updated in 2015 and there are probably some details missing - eg. modern mobile networks and 5G networks are not described in the book - most of the information seems up to date and relevant. 
@@ -14,9 +14,9 @@ These are my main takeaways from the book.
 
 ## 1) Latency will always be a problem
 
-Bandwidth and latency are the 2 limiting factors of networks that we often think about. While bandwidth can be a problem, as networking technology improves this is less and less the case. 
+Bandwidth and latency are the two limiting factors of networks that we often think about. While bandwidth can be a problem, as networking technology improves this is less and less the case. 
 
-However, latency is an intrinsic limitation in networks spread out over a distance, as data can travel no faster than the speed of light between 2 points. For example light in a vacuum will always take 19ms to travel between New York and London. So we have not only a number of factors which create latency in our networks today, but also a significant theoretical limit to the minimum amount of latency possible in an optimal network.
+However, latency is an intrinsic limitation in networks spread out over a distance, as data can travel no faster than the speed of light between two points. For example light in a vacuum will always take 19ms to travel between New York and London. So we have not only a number of factors which create latency in our networks today, but also a significant theoretical limit to the minimum amount of latency possible in an optimal network.
  
 Because of this, it is important to minimise the distance between users and their required resources. In practice this usually involves a well thought out caching strategy and use of CDNs.
 

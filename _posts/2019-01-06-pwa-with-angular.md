@@ -2,7 +2,7 @@
 layout: post
 title: "PWAs with Angular - Part 2: Building a Progressive Web App"
 image: "/images/angular7-pwa/apps.jpg"
-published: true
+published: false
 ---
 
 In my previous article, [PWAs with Angular - Part 1: Understanding Service Worker](https://willtaylor.blog/understanding-sw/), I walked through how to build a simple offline application using plain JavaScript and Service Worker. I recommend reading this as a prerequisite for learning to build PWAs.

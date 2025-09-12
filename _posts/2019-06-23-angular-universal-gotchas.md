@@ -2,7 +2,7 @@
 layout: post
 title: "The biggest Angular Universal gotchas, and how to avoid them"
 image: "/images/angular-universal-gotchas/mouse-traps.jpg"
-published: true
+published: false
 versions: Angular 8.x.x
 ---
 
