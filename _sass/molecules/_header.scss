@@ -31,9 +31,6 @@ header {
   align-items: center;
   margin-bottom: 0.5rem;
   padding-right: 1rem;
-  @include mobile {
-    width: 100%;
-  }
 
   img {
     margin:0;
